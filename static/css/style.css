@@ -1,4 +1,32 @@
-.bg-dark {
+/*================== PARENT PROPERTIES ================ */
+
+* {
+    --padding-88: 88px;
+    --padding-32: 32px;
+    --profile-padding: 30px;
+}
+
+body {
+    margin: 0;
+    line-height: inherit;
+}
+
+menu, ol, ul {
+    list-style: none;
+    margin: 0;
+    padding: 0 !important;
+}
+
+a {
+    color: inherit !important;
+    text-decoration: inherit !important;
+}
+
+p {
+    margin-bottom: 0 !important;
+}
+
+.bg-obsidian {
     --bg-opacity: 1;
     background-color: rgb(29 29 29/var(--bg-opacity));
 }
@@ -6,6 +34,38 @@
 .overflow-x-hidden {
     overflow-x: hidden;
 }
+
+.font-base {
+    font-size: 14px;
+}
+
+.text-obsidian {
+    --obs-text-opacity: 1;
+    color: rgb(220 220 220/var(--obs-text-opacity));
+}
+
+.text-cyan {
+    --cyan-text-opacity: 1;
+    color: rgb(8, 253, 216/var(--cyan-text-opacity));
+}
+
+.underline {
+    -webkit-text-decoration-line: underline;
+    text-decoration-line: underline;
+}
+
+.p-24 {
+    padding: 24px;
+}
+
+/*================== PICTURE ================ */
+
+.rounded-full {
+    --border-opacity: 1;
+    border-radius: 9999px;
+}
+
+/*================== SPACING ================ */
 
 blockquote, dd, dl, figure, h1, h2, h3, h4, h5, h6, hr, p, pre {
     margin: 0;
@@ -15,188 +75,404 @@ blockquote, dd, dl, figure, h1, h2, h3, h4, h5, h6, hr, p, pre {
     line-height: 1;
 }
 
+.loose-height {
+    line-height: 2;
+}
+
+.mt-8 {
+    margin-top: 8px;
+}
+
+.mt-16 {
+    margin-top: 16px;
+}
+
+.mt-32 {
+    margin-top: var(--padding-32);
+}
+
+.mr-8 {
+    margin-right: 8px;
+}
+
+.mr-32 {
+    margin-right: var(--padding-32);
+}
+
+.mx-m-8 {
+    margin-left: -8px;
+    margin-right: -8px;
+}
+
+
+.fill-current {
+    fill: currentColor;
+}
+
+/*================== FONT SIZE ================ */
+
 .font-manrope {
-    font-family: 'Gilroy Regular';
+    font-family: 'Manrope Regular';
     --tw-text-opacity: 1;
     color: rgb(255 255 255/var(--tw-text-opacity))
 }
 
 .font-bold {
-    font-weight: 700 !important;
+    font-family: 'Manrope Bold' !important
 }
 
-.font-2x {
+.font-semibold {
+    font-family: 'Manrope Semi Bold' !important
+}
+
+.font-xbold {
+    font-family: 'Manrope Extra Bold' !important
+}
+
+.font-med {
+    font-family: 'Manrope Medium' !important
+}
+
+.font-light {
+    font-family: 'Manrope Light' !important
+}
+
+.font-thin {
+    font-family: 'Manrope Extra Light' !important
+}
+
+.font-2xl {
     font-size: 3.5rem;
 }
 
-.js .loading::before,
-.js .loading::after {
-    content: '';
-    position: fixed;
-    z-index: 1000;
+.font-xl {
+    font-size: 2rem;
 }
 
-.js .loading::before {
-    top: 0;
-    left: 0;
+.font-lg {
+    font-size: 1.5rem;
+}
+
+/*================== MAIN STRUCTURE ================ */
+/* ------------------ LEFT PANEL ------------------- */
+.static {
+    position: static;
+}
+
+.w-full {
     width: 100%;
-    height: 100%;
-    background: var(--color-bg);
 }
 
-.js .loading::after {
-    top: 50%;
-    left: 50%;
-    width: 60px;
-    height: 60px;
-    margin: -30px 0 0 -30px;
-    border-radius: 50%;
-    opacity: 0.4;
-    background: var(--color-link);
-    animation: loaderAnim 0.7s linear infinite alternate forwards;
+.w-screen {
+    width: 100vw;
 }
 
-@keyframes loaderAnim {
-    to {
+.max-w-1440 {
+    max-width: 1440px;
+}
+
+/* #biography > * {
+    display: none;
+}
+
+#information {
+    
+}
+
+#contact {
+    
+} */
+
+/* ------------------ RIGHT PANEL ------------------- */
+/* #portfolio {
+    
+}
+
+#resume {
+
+}
+
+#projects {
+
+}
+
+3blogs {
+
+} */
+
+/*================== ANIMATION ================ */
+.fadeinDown {
+    -webkit-animation: fadeInDown 750ms ease-in-out; /* Chrome, Safari, Opera */
+    animation: fadeInDown 750ms ease-in-out;
+}
+
+/* Chrome, Safari, Opera */
+@-webkit-keyframes fadeInDown {
+    0% {
+        opacity: 0;
+        -webkit-transform: translateY(-40px);
+    }
+    100% {
         opacity: 1;
-        transform: scale3d(0.5, 0.5, 1);
+        -webkit-transform: translateY(0);
     }
 }
 
-.container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
-    gap: 0px 4em;
-    grid-auto-flow: row dense;
-    grid-template-areas:
-        "biography portfolio"
-        "biography portfolio"
-        "biography portfolio";
+/* Standard syntax */
+@keyframes fadeInDown {
+    0% {
+        opacity: 0;
+        transform: translateY(-40px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-.biography {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 1.4fr 0.3fr;
-    gap: 0px 0px;
-    grid-auto-flow: row dense;
-    grid-template-areas:
-        "information"
-        "contact";
-    grid-area: biography;
-    height: 100vh;
-    position: fixed;
+.fadeinUp {
+    -webkit-animation: fadeInUp 750ms ease-in-out; /* Chrome, Safari, Opera */
+    animation: fadeInUp 750ms ease-in-out;
 }
 
-.information {
-    grid-area: information;
+/* Chrome, Safari, Opera */
+@-webkit-keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        -webkit-transform: translateY(40px);
+    }
+    100% {
+        opacity: 1;
+        -webkit-transform: translateY(0);
+    }
 }
 
-.contact {
-    grid-area: contact;
+/* Standard syntax */
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-.portfolio {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
-    grid-auto-columns: 1fr;
-    gap: 3em 0px;
-    grid-auto-flow: row dense;
-    grid-template-areas:
-        "resume"
-        "projects"
-        "blogs";
-    grid-area: portfolio;
-    position: absolute;
-    right: 0;
+.fadeinLeft {
+    -webkit-animation: fadeInLeft 750ms ease-in-out; /* Chrome, Safari, Opera */
+    animation: fadeInLeft 750ms ease-in-out;
 }
 
-.resume {
-    align-self: stretch;
-    grid-area: resume;
+/* Chrome, Safari, Opera */
+@-webkit-keyframes fadeInLeft {
+    0% {
+        opacity: 0;
+        -webkit-transform: translateX(80px);
+    }
+    100% {
+        opacity: 1;
+        -webkit-transform: translateY(0);
+    }
 }
 
-.projects {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
-    gap: 1em 0px;
-    grid-auto-flow: row dense;
-    justify-content: start;
-    align-content: space-evenly;
-    align-items: start;
-    grid-template-areas:
-        "."
-        "."
-        ".";
-    grid-area: projects;
+/* Standard syntax */
+@keyframes fadeInLeft {
+    0% {
+        opacity: 0;
+        transform: translateX(80px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-.blogs {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
-    gap: 1em 0px;
-    grid-auto-flow: row dense;
-    justify-content: start;
-    align-content: space-evenly;
-    align-items: start;
-    grid-template-areas:
-        "."
-        "."
-        ".";
-    grid-area: blogs;
+.fadeinRight {
+    -webkit-animation: fadeInRight 750ms ease-in-out; /* Chrome, Safari, Opera */
+    animation: fadeInRight 750ms ease-in-out;
 }
 
+/* Chrome, Safari, Opera */
+@-webkit-keyframes fadeInRight {
+    0% {
+        opacity: 0;
+        -webkit-transform: translateX(-80px);
+    }
+    100% {
+        opacity: 1;
+        -webkit-transform: translateY(0);
+    }
+}
+
+/* Standard syntax */
+@keyframes fadeInRight {
+    0% {
+        opacity: 0;
+        transform: translateX(-80px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/*================== RESPONSIVENESS ================ */
+@media (min-width: 640px) {
+    .sm\:p-32 {
+        padding: var(--padding-32);
+    }
+}
+
+@media (min-width: 992px) {
+    .md\:fixed {
+        position: fixed;
+    }
+    .md\:absolute {
+        position: absolute;
+    }
+    .md\:pr-88 {
+        padding-right: var(--padding-88);
+    }
+    .md\:pl-0 {
+        padding-left: 0;
+    }
+    .md\:right-0 {
+        right: 0;
+    }
+    .md\:pr-72 {
+        padding-right: 72px;
+    }
+    .md\:max-w-496 {
+        max-width: 496px;
+    }
+    .md\:max-w-536 {
+        max-width: 536px;
+    }
+    .md\:h-screen {
+        height: 100vh;
+    }
+    .md\:mt-72 {
+        margin-top: 72px;
+    }
+    .md\:flex-row {
+        flex-direction: row;
+    }
+}
+
+@media (min-width: 1280px) {
+    .l\:pr-0 {
+        padding-right: 0px;
+    }
+    .l\:pr-88 {
+        padding-right: var(--padding-88);
+    }
+    .l\:pl-88 {
+        padding-left: 88px;
+    }
+    .l\:py-88 {
+        padding-top: var(--padding-88);
+        padding-bottom: var(--padding-88);
+    }
+    .l\:max-w-736 {
+        max-width: 736px;
+    }
+    .profile-picture {
+        position: static;
+        box-sizing: border-box;
+        border:none;
+        /* margin-left: var(--profile-padding); */
+        margin-top: calc(var(--profile-padding) * -1);
+        margin-bottom: var(--profile-padding);
+        display:block;
+        z-index: -1;
+        width: 225px;
+        height: 225px;
+    }
+}
 /*======================== FONT ===============================*/
+
 @font-face {
-    font-family: "Gilroy Regular";
-    src: url("../fonts/gilroy-regular.otf") format("opentype");
+    font-family: "Gilroy Black";
+    src: url("../fonts/SVN-Gilroy\ Black.otf") format("opentype");
 }
 
 @font-face {
-    font-family: "Gilroy Medium";
-    src: url("../fonts/gilroy_medium.otf") format("opentype");
+    font-family: "Gilroy Heavy";
+    src: url("../fonts/SVN-Gilroy\ Heavy.otf") format("opentype");
+}
+
+@font-face {
+    font-family: "Gilroy XBold";
+    src: url("../fonts/SVN-Gilroy\ XBold.otf") format("opentype");
 }
 
 @font-face {
     font-family: "Gilroy Bold";
-    src: url("../fonts/gilroy-bold.otf") format("opentype");
+    src: url("../fonts/SVN-Gilroy\ Bold.otf") format("opentype");
+}
+
+@font-face {
+    font-family: "Gilroy SemiBold";
+    src: url("../fonts/SVN-Gilroy\ SemiBold.otf") format("opentype");
+}
+
+@font-face {
+    font-family: "Gilroy Medium";
+    src: url("../fonts/SVN-Gilroy\ Medium.otf") format("opentype");
+}
+
+@font-face {
+    font-family: "Gilroy Regular";
+    src: url("../fonts/SVN-Gilroy\ Regular.otf") format("opentype");
+}
+
+@font-face {
+    font-family: "Gilroy Light";
+    src: url("../fonts/SVN-Gilroy\ Light.otf") format("opentype");
+}
+
+@font-face {
+    font-family: "Gilroy XLight";
+    src: url("../fonts/SVN-Gilroy\ Xlight.otf") format("opentype");
+}
+
+@font-face {
+    font-family: "Gilroy Thin";
+    src: url("../fonts/SVN-Gilroy\ Thin.otf") format("opentype");
 }
 
 @font-face {
     font-family: "Manrope Bold";
     src: url("../fonts/Manrope-Bold.otf") format("opentype");
-}
-
-@font-face {
+  }
+  
+  @font-face {
     font-family: "Manrope Extra Bold";
     src: url("../fonts/Manrope-ExtraBold.otf") format("opentype");
-}
-
-@font-face {
+  }
+  
+  @font-face {
     font-family: "Manrope Extra Light";
     src: url("../fonts/Manrope-ExtraLight.otf") format("opentype");
-}
-
-@font-face {
+  }
+  
+  @font-face {
     font-family: "Manrope Light";
     src: url("../fonts/Manrope-Light.otf") format("opentype");
-}
-
-@font-face {
+  }
+  
+  @font-face {
     font-family: "Manrope Medium";
     src: url("../fonts/Manrope-Medium.otf") format("opentype");
-}
-
-@font-face {
+  }
+  
+  @font-face {
     font-family: "Manrope Regular";
     src: url("../fonts/Manrope-Regular.otf") format("opentype");
-}
-
-@font-face {
+  }
+  
+  @font-face {
     font-family: "Manrope Semi Bold";
     src: url("../fonts/Manrope-SemiBold.otf") format("opentype");
-}
+  }

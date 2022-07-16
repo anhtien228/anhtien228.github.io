@@ -1,8 +1,18 @@
-// function fadeSeq(baseID) {
-//     var elems = $(baseID).children();
-//     $(elems).each(function(index) {
-//         $(this).delay(1200*index).fadeIn(1000);
-//     });
-// };
-
-// fadeSeq('#biography');
+var swiper = new Swiper(".mySwiper", {
+  effect: "cards",
+  cardsEffect: {
+    rotate: false,
+    slideShadows: false
+  },
+  loop: true,
+  grabCursor: true,
+  pagination: {
+    el: ".swiper-pagination",
+    clickable: true,
+  },
+  keyboard: {
+    enabled: true,
+    onlyInViewport: false,
+    pageUpDown: true
+  },
+});

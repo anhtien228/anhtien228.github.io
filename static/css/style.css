@@ -554,7 +554,7 @@ blockquote, dd, dl, figure, h1, h2, h3, h4, h5, h6, hr, p, pre {
 /*======================== SWIPER JS ===============================*/
 .swiper {
     width: auto;
-    height: 80vh;
+    height: 82vh;
 }
 
 .swiper-slide {
@@ -578,7 +578,7 @@ span.swiper-pagination-bullet {
 }
 
 .swiper {
-    padding-bottom: 35px !important;
+    padding-bottom: 50px !important;
 }
 
 .swiper-wrapper .swiper-pagination {
@@ -641,38 +641,3 @@ span.swiper-pagination-bullet {
     font-family: "Gilroy Thin";
     src: url("../fonts/SVN-Gilroy\ Thin.otf") format("opentype");
 }
-
-@font-face {
-    font-family: "Manrope Bold";
-    src: url("../fonts/Manrope-Bold.otf") format("opentype");
-  }
-  
-  @font-face {
-    font-family: "Manrope Extra Bold";
-    src: url("../fonts/Manrope-ExtraBold.otf") format("opentype");
-  }
-  
-  @font-face {
-    font-family: "Manrope Extra Light";
-    src: url("../fonts/Manrope-ExtraLight.otf") format("opentype");
-  }
-  
-  @font-face {
-    font-family: "Manrope Light";
-    src: url("../fonts/Manrope-Light.otf") format("opentype");
-  }
-  
-  @font-face {
-    font-family: "Manrope Medium";
-    src: url("../fonts/Manrope-Medium.otf") format("opentype");
-  }
-  
-  @font-face {
-    font-family: "Manrope Regular";
-    src: url("../fonts/Manrope-Regular.otf") format("opentype");
-  }
-  
-  @font-face {
-    font-family: "Manrope Semi Bold";
-    src: url("../fonts/Manrope-SemiBold.otf") format("opentype");
-  }

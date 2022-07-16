@@ -142,7 +142,6 @@ blockquote, dd, dl, figure, h1, h2, h3, h4, h5, h6, hr, p, pre {
     margin-right: -8px;
 }
 
-
 .fill-current {
     fill: currentColor;
 }
@@ -163,7 +162,7 @@ blockquote, dd, dl, figure, h1, h2, h3, h4, h5, h6, hr, p, pre {
 }
 
 .font-xbold {
-    font-family: 'Gilroy ExtraBold' !important
+    font-family: 'Gilroy XBold' !important
 }
 
 .font-med {
@@ -183,7 +182,6 @@ blockquote, dd, dl, figure, h1, h2, h3, h4, h5, h6, hr, p, pre {
 }
 
 /*================== MAIN STRUCTURE ================ */
-/* ------------------ LEFT PANEL ------------------- */
 .static {
     position: static;
 }
@@ -209,52 +207,98 @@ blockquote, dd, dl, figure, h1, h2, h3, h4, h5, h6, hr, p, pre {
     width: 100%;
     height: 200px;
     background-color: rgb(32, 32, 32);
+    transition: opacity .2s ease-in-out;
 }
+
 .project-item h4 {
     font-size: 0.65rem;
     text-transform: uppercase;
     letter-spacing: 4px;
 }
+
 .project-item h3 {
     font-size: 1.5rem;
 }
+
 .project-item p {
     font-family: "Gilroy Light";
     color: #c4c4c4;
     font-size: 13px;
 }
-/*
-#about-me {
+
+.project-item:hover {
+    cursor: pointer;
 }
 
-#information {
-    
+#projects-list:hover .project-item {
+    opacity: 0.5
 }
 
-#contact {
-    
-} */
-
-/* ------------------ RIGHT PANEL ------------------- */
-/*
-#portfolio {
-    
+#projects-list .project-item:hover {
+    opacity: 1;
 }
 
-#resume {
+/* #about-me {} */
 
+/* #information {} */
+
+/* #contact {} */
+
+/* #portfolio {} */
+
+#resume h2 {
+    font-size: 2rem;
 }
-*/
-#projects {
+
+#projects-list {
     overflow-y: scroll;
 }
+
 ::-webkit-scrollbar {
     width: 0px;
 }
-/*
-3blogs {
 
-} */
+.exp-item {
+    padding: var(--padding-32);
+    padding-top: 0;
+}
+
+.exp-item:first-child {
+    padding-top: var(--padding-32)
+}
+
+.exp-item h4 {
+    font-family: "Gilroy Light";
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+}
+
+.exp-item h3 {
+    font-size: 1.2rem;
+}
+
+.exp-item p {
+    font-family: "Gilroy Light";
+    color: #c4c4c4;
+    font-size: 13px;
+}
+
+.exp-item ul li {
+    font-family: "Gilroy XLight";
+    font-size: 14px;
+    padding-left: 25px;
+    margin-bottom: 8px;
+}
+
+.exp-item ul li::before {
+    content: "▹";
+    position: absolute;
+    left: 55px;
+    color: var(--green);
+}
+
+/*#blogs {} */
 
 /*================== ANIMATION ================ */
 .fadeinDown {
@@ -554,9 +598,8 @@ blockquote, dd, dl, figure, h1, h2, h3, h4, h5, h6, hr, p, pre {
 /*======================== SWIPER JS ===============================*/
 .swiper {
     width: auto;
-    height: 82vh;
+    height: 80vh;
 }
-
 .swiper-slide {
     display: flex;
     /* align-items: center; */
@@ -570,7 +613,15 @@ blockquote, dd, dl, figure, h1, h2, h3, h4, h5, h6, hr, p, pre {
 
 div.swiper-button-prev,
 div.swiper-button-next {
-    color: cyan;
+    overflow: visible;
+    color: var(--green);
+    transform: scale(0.5);
+    transition: color 0.2s ease-in-out
+}
+
+div.swiper-button-prev:hover,
+div.swiper-button-next:hover {
+    color: #07a093;
 }
 
 span.swiper-pagination-bullet {
@@ -578,7 +629,7 @@ span.swiper-pagination-bullet {
 }
 
 .swiper {
-    padding-bottom: 50px !important;
+    padding-bottom: 80px !important;
 }
 
 .swiper-wrapper .swiper-pagination {

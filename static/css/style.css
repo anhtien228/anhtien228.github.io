@@ -4,6 +4,9 @@
     --padding-88: 88px;
     --padding-32: 32px;
     --profile-padding: 30px;
+    --pfp-size-sm: 100px;
+    --pfp-size-md: 150px;
+    --pfp-size-lg: 225px;
 }
 
 body {
@@ -141,18 +144,6 @@ blockquote, dd, dl, figure, h1, h2, h3, h4, h5, h6, hr, p, pre {
     font-family: 'Manrope Extra Light' !important
 }
 
-.font-2xl {
-    font-size: 3.5rem;
-}
-
-.font-xl {
-    font-size: 2rem;
-}
-
-.font-lg {
-    font-size: 1.5rem;
-}
-
 /*================== MAIN STRUCTURE ================ */
 /* ------------------ LEFT PANEL ------------------- */
 .static {
@@ -169,6 +160,10 @@ blockquote, dd, dl, figure, h1, h2, h3, h4, h5, h6, hr, p, pre {
 
 .max-w-1440 {
     max-width: 1440px;
+}
+
+.flex-col {
+    flex-direction: column !important;
 }
 
 /* #biography > * {
@@ -318,9 +313,60 @@ blockquote, dd, dl, figure, h1, h2, h3, h4, h5, h6, hr, p, pre {
 }
 
 /*================== RESPONSIVENESS ================ */
+@media (min-width: 380px) {
+    .profile-picture {
+        position: static;
+        box-sizing: border-box;
+        border:none;
+        /* margin-left: var(--profile-padding); */
+        margin-top: var(--profile-padding);
+        margin-bottom: var(--profile-padding);
+        margin-right: var(--profile-padding);
+        display:block;
+        width: var(--pfp-size-sm);
+        height: var(--pfp-size-sm);
+        transition: width linear 200ms;
+        transition: height linear 200ms;
+    }
+    .font-2xl {
+        font-size: 1.5rem;
+    }
+    
+    .font-xl {
+        font-size: 1.0rem;
+    }
+    
+    .font-lg {
+        font-size: 1.0rem;
+    }
+    .sm\:d-flex {
+        display: flex;
+    }
+    .sm\:flex-row {
+        flex-direction: row !important;
+    }
+    .sm\:flex-col {
+        flex-direction: column !important;
+        justify-content: center;
+    }
+    .sm\:flex-col > h2 {
+        margin-top: 0 !important;
+    }
+}
 @media (min-width: 640px) {
     .sm\:p-32 {
         padding: var(--padding-32);
+    }
+    .font-2xl {
+        font-size: 2.5rem;
+    }
+    
+    .font-xl {
+        font-size: 2.0rem;
+    }
+    
+    .font-lg {
+        font-size: 1.25rem;
     }
 }
 
@@ -358,6 +404,22 @@ blockquote, dd, dl, figure, h1, h2, h3, h4, h5, h6, hr, p, pre {
     .md\:flex-row {
         flex-direction: row;
     }
+    .md\:non-flex {
+        display: block;
+    }
+    .profile-picture {
+        position: static;
+        box-sizing: border-box;
+        border:none;
+        /* margin-left: var(--profile-padding); */
+        margin-top: calc(var(--profile-padding));
+        margin-bottom: var(--profile-padding);
+        display:block;
+        width: var(--pfp-size-md);
+        height: var(--pfp-size-md);
+        transition: width linear 200ms;
+        transition: height linear 200ms;
+    }
 }
 
 @media (min-width: 1280px) {
@@ -383,11 +445,25 @@ blockquote, dd, dl, figure, h1, h2, h3, h4, h5, h6, hr, p, pre {
         border:none;
         /* margin-left: var(--profile-padding); */
         margin-top: calc(var(--profile-padding) * -1);
-        margin-bottom: var(--profile-padding);
+        margin-bottom: var(--profile-padding) ;
         display:block;
-        z-index: -1;
-        width: 225px;
-        height: 225px;
+        width: var(--pfp-size-lg);
+        height: var(--pfp-size-lg);
+        transition: width linear 200ms;
+        transition: height linear 200ms;
+    }
+    .font-2xl {
+        font-size: 3.5rem;
+        transition: font-size linear 200ms;
+    }
+    
+    .font-xl {
+        font-size: 2rem;
+    }
+    
+    .font-lg {
+        font-size: 1.5rem;
+        transition: font-size linear 200ms;
     }
 }
 /*======================== FONT ===============================*/

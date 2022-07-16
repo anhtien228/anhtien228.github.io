@@ -39,7 +39,7 @@ p {
 }
 
 .font-base {
-    font-size: 14px;
+    font-size: 16px;
 }
 
 .text-obsidian {
@@ -166,6 +166,21 @@ blockquote, dd, dl, figure, h1, h2, h3, h4, h5, h6, hr, p, pre {
     flex-direction: column !important;
 }
 
+.project-item {
+    padding: var(--padding-32);
+    width: 100%;
+    height: 200px;
+    background-color: rgb(49, 49, 49);
+}
+
+.project-item h4 {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+}
+
+.project-item h3 {
+    font-size: 1.5rem;
+}
 /* #biography > * {
     display: none;
 }
@@ -263,7 +278,7 @@ blockquote, dd, dl, figure, h1, h2, h3, h4, h5, h6, hr, p, pre {
 @-webkit-keyframes fadeInLeft {
     0% {
         opacity: 0;
-        -webkit-transform: translateX(80px);
+        -webkit-transform: translateX(20px);
     }
     100% {
         opacity: 1;
@@ -275,7 +290,7 @@ blockquote, dd, dl, figure, h1, h2, h3, h4, h5, h6, hr, p, pre {
 @keyframes fadeInLeft {
     0% {
         opacity: 0;
-        transform: translateX(80px);
+        transform: translateX(20px);
     }
     100% {
         opacity: 1;
@@ -335,7 +350,6 @@ blockquote, dd, dl, figure, h1, h2, h3, h4, h5, h6, hr, p, pre {
     .font-xl {
         font-size: 1.0rem;
     }
-    
     .font-lg {
         font-size: 1.0rem;
     }
@@ -351,6 +365,9 @@ blockquote, dd, dl, figure, h1, h2, h3, h4, h5, h6, hr, p, pre {
     }
     .sm\:flex-col > h2 {
         margin-top: 0 !important;
+    }
+    .sm\:gap {
+        row-gap: 1.5rem !important;
     }
 }
 @media (min-width: 640px) {
@@ -466,6 +483,24 @@ blockquote, dd, dl, figure, h1, h2, h3, h4, h5, h6, hr, p, pre {
         transition: font-size linear 200ms;
     }
 }
+
+/*======================== SWIPER JS ===============================*/
+.swiper {
+    width: auto;
+    height: 80vh;
+  }
+
+.swiper-slide {
+    display: flex;
+    /* align-items: center; */
+    justify-content: center;
+    /* border-radius: 18px; */
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #2a2a2a;
+  }
+
 /*======================== FONT ===============================*/
 
 @font-face {

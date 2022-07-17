@@ -1,24 +1,22 @@
-var swiper = new Swiper(".mySwiper", {
-//   effect: "cards",
-//   cardsEffect: {
-//     rotate: true,
-//     slideShadows: false
-//   },
-  loop: true,
-//   grabCursor: true,
-  pagination: {
-    el: ".swiper-pagination",
-    clickable: true,
-  },
-  navigation: {
-    nextEl: '.swiper-button-next',
-    prevEl: '.swiper-button-prev',
-  },
-  keyboard: {
-    enabled: true,
-    onlyInViewport: false,
-    pageUpDown: true
-  },
+$(window).on('load', function() {
+  var swiper = new Swiper(".mySwiper", {
+    //   effect: "cards",
+    //   cardsEffect: {
+    //     rotate: true,
+    //     slideShadows: false
+    //   },
+    loop: true,
+    //   grabCursor: true,
+    pagination: {
+      el: ".swiper-pagination",
+      clickable: true,
+    },
+    keyboard: {
+      enabled: true,
+      onlyInViewport: false,
+      pageUpDown: true
+    },
+  });
 });
 
 $(document).ready(function () {

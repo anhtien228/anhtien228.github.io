@@ -52,11 +52,20 @@ function removeFadeOut(el, speed) {
 //   $('.')
 // });
 
-document.getElementById("projects-list").addEventListener("mousewheel", function() {
-  $('#projects-list').removeClass('hidden-scroll')
-  $('#projects-list').addClass('show-scroll');
+document.getElementById("article-list").addEventListener("mousewheel", function() {
+  $('#article-list').removeClass('hidden-scroll')
+  $('#article-list').addClass('show-scroll');
   setTimeout(function() {
-    $('#projects-list').removeClass('show-scroll');
-    $('#projects-list').addClass('hidden-scroll');
+    $('#article-list').removeClass('show-scroll');
+    $('#article-list').addClass('hidden-scroll');
+  }, 1000)
+});
+
+document.getElementById("blog-list").addEventListener("mousewheel", function() {
+  $('#blog-list').removeClass('hidden-scroll')
+  $('#blog-list').addClass('show-scroll');
+  setTimeout(function() {
+    $('#blog-list').removeClass('show-scroll');
+    $('#blog-list').addClass('hidden-scroll');
   }, 1000)
 });

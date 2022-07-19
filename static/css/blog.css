@@ -1,0 +1,199 @@
+* {
+    --green: rgb(8, 253, 216);
+    --small-wrapper-max-width: 45rem;
+}
+
+.f-main-container {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.f-standard-container.has-newsletter {
+    padding-bottom: 4.6875rem !important;
+}
+
+.f-standard-container {
+    position: relative;
+    padding-top: 3.125rem !important;
+    padding-bottom: 6.25rem !important;
+}
+
+.f-standard-wrapper.in-post {
+    z-index: auto;
+}
+
+.f-standard-wrapper {
+    position: relative;
+    padding: 0 var(--mobile-space);
+    width: 100%;
+    max-width: var(--standard-wrapper-max-width);
+    margin: 0 auto;
+    z-index: 2;
+}
+
+.f-article {
+    margin-bottom: 4.6875rem !important;
+}
+
+.f-article-header {
+    position: relative;
+    margin-bottom: 3.125rem !important;
+}
+
+.f-article-header__title {
+    color: white;
+    line-height: 1.3;
+    font-size: 2.25rem;
+    font-weight: 600;
+    margin: 0 0 1.5625rem !important;
+}
+
+.f-article-header__excerpt.in-post {
+    margin-bottom: 1.5625rem !important;
+}
+
+.f-article-header__excerpt {
+    color: #e4e4e4;
+    line-height: 1.7;
+    font-size: 1rem;
+    max-width: 33.75rem;
+}
+
+.f-article-header__time {
+    display: flex;
+    align-items: center;
+    color: var(--green);
+    line-height: 1.4;
+    font-size: .875rem;
+    margin-bottom: 2.1875rem !important;
+}
+
+.f-article-header__author {
+    display: flex;
+    align-items: center;
+    color: white;
+}
+
+.f-avatar.in-article-header {
+    width: 2.5rem;
+    height: 2.5rem;
+}
+
+.f-avatar {
+    display: flex;
+    align-items: center;
+    width: 2rem;
+    height: 2rem;
+    cursor: pointer;
+    background-color: var(--border-color);
+    transition: all .1s ease;
+}
+
+.f-article-content {
+    margin: 0 0 !important;
+}
+
+.f-article-content {
+    display: block;
+    color: #e4e4e4;
+    position: relative;
+}
+
+.f-article-content p {
+    line-height: 2;
+    font-size: 1rem;
+    margin-bottom: 1.5625rem;
+}
+
+.f-article-content h2 {
+    font-size: 1.2962rem !important;
+}
+
+@media only screen and (min-width: 48rem) {
+    .f-article-content h2 {
+        line-height: 1.2 !important;
+        font-size: 2.4413rem !important;
+        padding-top: 0.625rem !important;
+        margin-bottom: 1.5625rem !important;
+    }
+}
+
+@media only screen and (min-width: 48rem) {
+    .f-article-content p {
+        font-size: 1.0625rem !important;
+        margin-bottom: 2.1875rem !important;
+    }
+}
+
+@media only screen and (min-width: 48rem) {
+    .f-article-content {
+        max-width: var(--small-wrapper-max-width);
+        margin: 0 auto;
+    }
+}
+
+@media only screen and (min-width: 48rem) {
+    .f-article-header__time {
+        margin-bottom: 3.125rem !important;
+    }
+}
+
+@media only screen and (min-width: 48rem) {
+    .f-article-header__excerpt {
+        font-size: 1.125rem;
+        max-width: 40rem;
+    }
+}
+
+@media only screen and (min-width: 48rem) {
+    .f-article-header__title {
+        line-height: 1.2;
+        font-size: 3.75rem;
+        margin-bottom: 2.1875rem !important;
+    }
+}
+
+@media only screen and (min-width: 48rem) {
+    .f-article-header {
+        max-width: 53.75rem !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        margin-bottom: 4.6875rem !important;
+    }
+}
+
+@media only screen and (min-width: 48rem) {
+    .f-article {
+        max-width: 53.75rem !important;
+        margin: 0 auto 6.25rem !important;
+    }
+}
+
+@media only screen and (min-width: 48rem) {
+    .f-standard-container.has-newsletter {
+        padding-bottom: 6.25rem !important;
+    }
+    
+}
+
+@media only screen and (min-width: 48rem) {
+    .f-standard-container {
+        padding-top: 6.25rem !important;
+        padding-bottom: 9.375rem !important;
+    }
+}
+
+@media only screen and (min-width: 80rem) {
+    .f-standard-wrapper {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+}
+
+@media only screen and (min-width: 48rem) {
+    .f-standard-wrapper {
+        padding-left: 3.75rem !important;
+        padding-right: 3.75rem !important;
+    }
+}

@@ -296,6 +296,12 @@ blockquote, dd, dl, figure, h1, h2, h3, h4, h5, h6, hr, p, pre {
     color: var(--green);
 }
 
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(2, 2fr);
+    grid-gap: 10px;
+}
+
 /*#blogs {} */
 
 /*================== ANIMATION ================ */
@@ -490,6 +496,11 @@ blockquote, dd, dl, figure, h1, h2, h3, h4, h5, h6, hr, p, pre {
     .xsm\:mt-8 {
         margin-top: 8px;
     }
+    .xsm\:blog-container {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
 }
 
 @media (min-width: 640px) {
@@ -547,6 +558,9 @@ blockquote, dd, dl, figure, h1, h2, h3, h4, h5, h6, hr, p, pre {
     .md\:mt-72 {
         margin-top: 72px;
     }
+    .md\:d-flex {
+        display: flex;
+    }
     .md\:flex-row {
         flex-direction: row;
     }
@@ -569,7 +583,6 @@ blockquote, dd, dl, figure, h1, h2, h3, h4, h5, h6, hr, p, pre {
     .md\:line-height-cus {
         line-height: 2;
     }
-    
     .blog-item {
         padding: var(--padding-32) !important;
         width: 100% !important;
@@ -623,8 +636,14 @@ blockquote, dd, dl, figure, h1, h2, h3, h4, h5, h6, hr, p, pre {
 
     .blog-item {
         padding: var(--padding-32) !important;
-        width: 44% !important;
+        /* width: 44% !important; */
         height: fit-content !important;
+    }
+    .l\:blog-container {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 6px;
+        grid-row-end: 100px;
     }
 }
 

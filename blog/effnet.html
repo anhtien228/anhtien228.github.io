@@ -13,13 +13,13 @@
     <title>Deep Learning: EfficientNetV2 Model in Computer Vision</title>
     <meta name="robots" content="index,follow">
     <meta name="description"
-        content="Doan Anh Tien | A blog about the concept of EfficientNetV2 architecture. You will gain an understanding of this deep neural networks, its performance and applications in computer vision field.">
+        content="Doan Anh Tien | A blog about the concept of EfficientNetV2 architecture. You will gain an understanding of this deep neural network, its performance and applications in computer vision field.">
     <meta property="author" content="Doan Anh Tien">
     <meta property="og:site_name" content="Doan Anh Tien's Blog">
     <meta property="og:type" content="article">
     <meta property="og:title" content="Deep Learning: EfficientNetV2 Model in Computer Vision">
     <meta property="og:description"
-        content="Doan Anh Tien | A blog about the concept of EfficientNetV2 architecture. You will gain an understanding of this deep neural networks, its performance and applications in computer vision field.">
+        content="Doan Anh Tien | A blog about the concept of EfficientNetV2 architecture. You will gain an understanding of this deep neural network, its performance and applications in computer vision field.">
     <!-- JQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <!-- Swiper -->
@@ -30,12 +30,13 @@
         <main class="f-standard-container has-newsletter js-standard-container font-gilroy" role="main">
             <div class="f-standard-wrapper in-post">
                 <article class="f-article js-article">
-                    <header class="f-article-header ">
-                        <h1 class="f-article-header__title js-article-title font-semibold"">
+                    <header class="f-article-header fadeinDown">
+                        <h1 class="f-article-header__title js-article-title font-semibold">
                                 Deep Learning: EfficientNetV2 Model in Computer Vision
                             </h1>
                             <p class=" f-article-header__excerpt in-post">
-                                This blog provides to you the concept and the architecture of EfficientNetV2 family model. You will gain an understanding of this deep neural networks, its performance and applications in computer vision field.
+                                This blog provides to you the concept and the architecture of EfficientNetV2 family model. You will gain an
+                                understanding of this deep neural network, its performance and applications in computer vision field.
                             </p>
                             <p class="f-article-header__time">
                                 <span>February 7, 2022</span>
@@ -54,7 +55,7 @@
                                 </span>
                             </div>
                     </header>
-                    <div class="f-article-content js-article-content">
+                    <div class="f-article-content js-article-content fadeinRight">
                         <h2 id="introduction" class="font-semibold">Introduction</h2>
                         <p> 
                             There is no doubt that machine learning is becoming well-known these days not only to
@@ -64,8 +65,8 @@
                         <p>
                             As as student that major in Computer Science and Engineering, my interests in Data Science and ML has been charmed
                             with the appearance of the Machine Learning Engineer course by DIVE INTO CODE. Being a learner for more than one
-                            year, the course has convey a lot of useful theories and practical problem to brush my skills. This report is
-                            conducted to demonstrate the final assignment for my graduation at DIVE INTO CODE, and everything here is served to
+                            year, the course has convey a lot of useful theories and practical problem to brush my skills. This blog is
+                            created to demonstrate the final assignment for my graduation at DIVE INTO CODE, and everything here is served to
                             describe my work in details.
                         </p>
                         <p>
@@ -79,7 +80,7 @@
                             rel="noopener noreferrer" target="_blank">5K Compliance</a>
                             .
                         </p>
-                        <h2 id="introduction" class="font-semibold">Competition overview</h2>
+                        <h2 id="overview" class="font-semibold">Competition overview</h2>
                         <p>
                             In this section, I will briefly explain about the meaning of the name, the description and rules of the challenge,
                             and the dataset that need to be interpreted on.
@@ -89,9 +90,9 @@
                             message, masking and keeping a safe distance are two key rules that have been shown to be extremely successful in
                             preventing people from contracting or spreading the virus. Enforcing these principles on a large scale is where
                             technology may help. In this challenge, you will create algorithm to detect whether or not a person or group of
-                            individuals in a picture adhere to the <b class="text-cyan">mask</b> and <b class="text-cyan">distance</b> standards.
+                            individuals in a picture adhere to the <b><u>mask</u></b> and <b><u>distance</u></b> standards.
                         </p>
-                        <h4 class="text-center link link-underline mb-4" style="width: fit-content; cursor: auto">
+                        <h4 id="rules" class="text-center link link-underline" style="width: fit-content; cursor: auto">
                             <b>Basic rules</b>
                         </h4>
                         <p>
@@ -103,6 +104,39 @@
                             close, 1 = far enough). People that adhere the 5k standard will not likely to expose the virus to each other in case
                             they did caught it before, and it is to prevent the spread of the COVID-19 pandamic through people interactions.
                         </p>
+
+                        <h2 id="background-method" class="font-semibold">Background & Methodologies</h2>
+                        <p>
+                            In this section, we will have a discussion about the methodologies, models that our project has implemented and
+                            applied. This will enable reader to understand the mechanism behind them and how useful they are in this specific
+                            image detection field. The first part will mainly focus on the EfficientNet baseline model first.
+                        </p>
+                        <h3 id="efficientnet" class="font-semibold">EfficientNet</h3>
+                        <p>
+                            Convolutional Neural Networks (ConvNets) are frequently constructed with a limited resource budget and then scaled
+                            up for improved accuracy as more resources become available.
+                            <a class="text-cyan link link-underline" href="https://arxiv.org/abs/2104.00298"
+                            rel="noopener noreferrer" target="_blank">Creators of EfficientNet</a>
+                            has conducted a research
+                            paper, in which they study model scaling and learn that better accuracy or resources efficiency can be reached if we
+                            could balance the network depth, width, and resolution. They proposed a new scaling method uses a simple but very
+                            effective compound scaling method to scale all depth/width/resolution dimensions equally.
+                        </p>
+                        <p>
+                            The researchers also design a family of models to evaluate its performance and size. The dataset used in their study
+                            is <a class="text-cyan link link-underline" href="https://www.image-net.org"
+                            rel="noopener noreferrer" target="_blank">ImageNet</a>
+                            which is a large database of annotated photographs intended for computer vision research. It has more
+                            than 14 million images that capture different objects and indicate what they are, and in at least one million of the
+                            images, bounding boxes are also provided.
+                        </p>
+                        <figure class="kg-card kg-image-card kg-card-hascaption">
+                            <img src="https://drive.google.com/uc?id=1TTSFVxUfX7Sed75tFKHDK5INo7A6gzDW"
+                            class="kg-image lightense-target" alt="Model scaling for ConvNets" loading="lazy">
+                            <figcaption>Model Scaling. (a) is a baseline network example; (b)-(d) are conventional scaling that only increases one
+                                dimension of network width, depth, or resolution. (e) is the proposed compound scaling method that uniformly scales
+                                all three dimensions with a fixed ratio by creators of EfficientNet</figcaption>
+                        </figure>
                     </div>
                 </article>
             </div>

@@ -12,6 +12,10 @@ $(window).on('load', function() {
       el: ".swiper-pagination",
       clickable: true,
     },
+    navigation: {
+      nextEl: '#right-nav',
+      prevEl: '#left-nav',
+    },
     keyboard: {
       enabled: true,
       onlyInViewport: false,
@@ -25,6 +29,9 @@ $(document).ready(function () {
     var slide = function () {
         id_val = $('.swiper-slide-active').attr('id');
         $('#resume').find('h2').text(id_val)
+        $('#resume').find('#left-nav').text((typeof $('.swiper-slide-prev').attr('id') === "undefined" ? '' : '🠠 ' + $('.swiper-slide-prev').attr('id')))
+        $('#resume').find('#right-nav').text((typeof $('.swiper-slide-next').attr('id') === "undefined" ? '' : $('.swiper-slide-next').attr('id') + ' ➝'))
+
     };
     setInterval(slide, 100);
 });

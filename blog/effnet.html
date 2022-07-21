@@ -22,7 +22,17 @@
         content="Doan Anh Tien | A blog about the concept of EfficientNetV2 architecture. You will gain an understanding of this deep neural network, its performance and applications in computer vision field.">
     <!-- JQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <!-- Swiper -->
+    <script>
+        MathJax = {
+          tex: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']]
+          },
+          color: '#dcf6ff'
+        };
+    </script>
+    <script id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+    </script>
 </head>
 
 <body class="overflow-x-hidden bg-obsidian">
@@ -55,7 +65,7 @@
                                 </span>
                             </div>
                     </header>
-                    <div class="f-article-content js-article-content fadeinRight">
+                    <div class="f-article-content js-article-content fadeinRight text-space">
                         <h2 id="introduction" class="font-semibold">Introduction</h2>
                         <p> 
                             There is no doubt that machine learning is becoming well-known these days not only to
@@ -104,6 +114,18 @@
                             close, 1 = far enough). People that adhere the 5k standard will not likely to expose the virus to each other in case
                             they did caught it before, and it is to prevent the spread of the COVID-19 pandamic through people interactions.
                         </p>
+                        <div class="d-flex flex-row gap-sm-4">
+                            <figure class="kg-card kg-image-card kg-card-hascaption">
+                                <img src="https://drive.google.com/uc?id=14aCQhbeEymqpQLMmuTXrPDqk3LIVE_lB"
+                                class="kg-image lightense-target" alt="Dataset sample" loading="lazy">
+                                <figcaption>Dataset sample 1</figcaption>
+                            </figure>
+                            <figure class="kg-card kg-image-card kg-card-hascaption">
+                                <img src="https://drive.google.com/uc?id=1_vlmEjXEdU-TRnkKu_DREYuJUlUgfBLW"
+                                class="kg-image lightense-target" alt="Dataset sample" loading="lazy">
+                                <figcaption>Dataset sample 2</figcaption>
+                            </figure>
+                        </div>
 
                         <h2 id="background-method" class="font-semibold">Background & Methodologies</h2>
                         <p>
@@ -137,6 +159,37 @@
                                 dimension of network width, depth, or resolution. (e) is the proposed compound scaling method that uniformly scales
                                 all three dimensions with a fixed ratio by creators of EfficientNet</figcaption>
                         </figure>
+                        <p>
+                            When training model with more computational resources, we can either increase the network, width or resolution. The
+                            factors (coefficients) can be determined by a small grid search on the original smaller model. Figure 1 demonstrate
+                            the difference between the compound scaling of the creators and other convetional methods.
+                        </p>
+                        <h3 id="optimization-problem" class="font-semibold">Optimization Problem</h3>
+                        <p>
+                            As the model scaling factor is quite complex yet still be one of the interesting of these researches, so I had tried
+                            my best to make the explanation simpler.
+                        </p>
+                        <p>
+                            First, the ConvNet Layer i can be defined with a function $$Y_i = F_i(X_i) \tag{1}\label{eq1}$$ where:
+                            $$
+                            \scriptsize{ 
+                                \begin{array}{lll} \\
+                                F_i     & = & \text{can be seen as the activation function used in that layer} \\
+                                X_i     & = & \text{input tensor with shape $\langle$ H_i, W_i, C_i $\rangle$}   \\
+                                Y_i     & = & \text{output tensor} \\
+                                H_i, W_i & = & \text{spatial dimensions} \\
+                                C_i     & = & \text{channel dimension}
+                                \end{array}
+                            }
+                            $$
+                        </p>
+                        <p>
+                            Then, a whole ConvNet $η$ is composed of layers with Hadamard Product (component-wise multiplication for matrices):
+                            $$
+                            \eta = F_k \odot ... \odot F_2 \odot F_1(X_1) = \odot_{j=1...k} F_j(X_1) \tag{2}\label{eq2}
+                            $$
+                        </p>
+                        To explain the notation of equation $\eqref{eq2}$, the hadamard product can be described as the product of two 3x3 matrices below: 
                     </div>
                 </article>
             </div>
@@ -144,7 +197,8 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" async defer
         integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous">
-        </script>
+    </script>
+        
 </body>
 
 </html>

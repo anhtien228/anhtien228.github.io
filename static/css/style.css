@@ -178,7 +178,7 @@ blockquote, dd, dl, figure, h1, h2, h3, h4, h5, h6, hr, p, pre {
 }
 
 .text-space {
-    letter-spacing: 0.5px;
+    letter-spacing: -0.25px;
 }
 
 /*================== MAIN STRUCTURE ================ */
@@ -202,9 +202,19 @@ blockquote, dd, dl, figure, h1, h2, h3, h4, h5, h6, hr, p, pre {
     flex-direction: column !important;
 }
 
-.exp-item {
-    padding: var(--padding-32);
-    padding-top: 0;
+@media (min-width: 380px) {
+    .exp-item {
+        padding: 0;
+        padding-top: 0;
+    }
+}
+
+
+@media (min-width: 640px) {
+    .exp-item {
+        padding: var(--padding-32);
+        padding-top: 0;
+    }
 }
 
 .exp-item:first-child {
@@ -235,11 +245,23 @@ blockquote, dd, dl, figure, h1, h2, h3, h4, h5, h6, hr, p, pre {
     margin-bottom: 8px;
 }
 
-.exp-item ul li::before {
-    content: "▹";
-    position: absolute;
-    left: 55px;
-    color: var(--green);
+@media (min-width: 380px) {
+    .exp-item ul li::before {
+        content: "▹";
+        position: absolute;
+        left: 25px;
+        color: var(--green);
+    }
+}
+
+
+@media (min-width: 640px) {
+    .exp-item ul li::before {
+        content: "▹";
+        position: absolute;
+        left: 55px;
+        color: var(--green);
+    }
 }
 
 .grid-container {
@@ -310,10 +332,6 @@ blockquote, dd, dl, figure, h1, h2, h3, h4, h5, h6, hr, p, pre {
 /* #contact {} */
 
 /* #portfolio {} */
-
-#resume h2 {
-    font-size: 2rem;
-}
 
 /*#blogs {} */
 
@@ -513,6 +531,33 @@ blockquote, dd, dl, figure, h1, h2, h3, h4, h5, h6, hr, p, pre {
         display: flex;
         flex-direction: column;
     }
+    #nav-guide {
+        display: none;
+    }
+    .blog-item {
+        height: fit-content !important;
+    }
+    .article-item {
+        height: fit-content !important;
+    }
+    #resume h2 {
+        font-size: 1.125rem;
+    }
+    .article-item {
+        padding: calc(var(--padding-32));
+    }
+    .article-item h3 {
+        font-size: 1.125rem;
+    }
+    .article-item h4 {
+        font-size: 0.45rem;
+    }
+    .article-item p {
+        font-size: 0.6rem;
+    }
+    .swiper-header p {
+        font-size: .7rem;
+    }
 }
 
 @media (min-width: 640px) {
@@ -526,15 +571,38 @@ blockquote, dd, dl, figure, h1, h2, h3, h4, h5, h6, hr, p, pre {
     .font-xl {
         font-size: 2.0rem;
     }
-    
+
     .font-lg {
         font-size: 1.25rem;
     }
+
     .sm\:font-base {
         font-size: 16px;
     }
+
     .sm\:mt-32 {
         margin-top: 32px;
+    }
+    #resume h2 {
+        font-size: 2rem;
+    }
+    .article-item {
+        padding: calc(var(--padding-32) + 10px);
+    }
+    .article-item h3 {
+        font-size: 1.5rem;
+    }
+    .article-item h4 {
+        font-size: 0.65rem;
+    }
+    .article-item p {
+        font-size: 13px;
+    }
+    .blog-item h3 {
+        font-size: 1.3rem !important;
+    }
+    .swiper-header p {
+        font-size: 1rem;
     }
 }
 
@@ -598,7 +666,13 @@ blockquote, dd, dl, figure, h1, h2, h3, h4, h5, h6, hr, p, pre {
     .blog-item {
         padding: var(--padding-32) !important;
         width: 100% !important;
-        height: fit-content !important;
+    }
+    .swiper {
+        margin-top: 1.5rem;
+        height: 80vh;
+    }
+    #nav-guide {
+        display: block;
     }
 }
 
@@ -668,13 +742,16 @@ blockquote, dd, dl, figure, h1, h2, h3, h4, h5, h6, hr, p, pre {
         width: 100%;
         height: fit-content !important;
     }
+    .swiper {
+        margin-top: 0;
+        height: 75vh;
+    }
 }
 
 
 /*======================== SWIPER JS ===============================*/
 .swiper {
     width: auto;
-    height: 80vh;
 }
 .swiper-slide {
     display: flex;
@@ -685,6 +762,52 @@ blockquote, dd, dl, figure, h1, h2, h3, h4, h5, h6, hr, p, pre {
     color: #fff;
     /* background-color: #2a2a2a; */
     background-color: rgb(29 29 29);
+}
+
+.swiper-header {
+    transition: all 0.2s ease-in
+}
+
+@media (min-width: 380px) {
+    .swiper-header #left-nav {
+        flex-basis: 30px;
+        flex-shrink: 0;
+        flex-grow: 1;
+        padding-left: 0;
+    }
+
+    .swiper-header #main-header {
+        flex-basis: 120px;
+        flex-shrink: 2;
+    }
+
+    .swiper-header #right-nav {
+        flex-basis: 30px;
+        flex-shrink: 0;
+        flex-grow: 1;
+        padding-right: 0;
+    }
+}
+
+@media (min-width: 640px) {
+    .swiper-header #left-nav {
+        flex-basis: 30px;
+        flex-shrink: 0;
+        flex-grow: 1;
+        padding-left: 1.5rem;
+    }
+
+    .swiper-header #main-header {
+        flex-basis: 200px;
+        flex-shrink: 2;
+    }
+
+    .swiper-header #right-nav {
+        flex-basis: 30px;
+        flex-shrink: 0;
+        flex-grow: 1;
+        padding-right: 1.5rem;
+    }
 }
 
 .show-scroll::-webkit-scrollbar {

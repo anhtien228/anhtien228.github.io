@@ -160,6 +160,10 @@
     pointer-events: auto;
 }
 
+.MJX-TEX{
+    color: var(--secondary-text-color) !important;
+}
+
 
 @media only screen and (min-width: 48rem) {
     .f-article-content h2 {

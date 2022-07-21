@@ -27,7 +27,7 @@
         <span class="title-splash">E</span>
         <span class="title-splash">N</span>
       </div> -->
-        <div class="container-custom position-relative d-flex flex-col md:flex-row w-screen max-w-1440 mx-auto font-gilroy font-base">
+        <div class="container-custom position-relative d-flex flex-col md:flex-row w-screen max-w-1440 mx-auto font-gilroy font-base text-space">
             <div id="biography" class="d-flex flex-col justify-content-between static md:fixed w-full p-24 md:max-w-496 md:h-screen sm:p-32 l:pl-88 l:py-88 l:pr-0 md:pr-72">
               <div id="information" class="xsm:d-flex flex-col md:flex-row">
                 <div id="responsive-info" class="xsm:d-flex md:non-flex xsm:flex-row">
@@ -82,7 +82,11 @@
             <div id="portfolio" class="d-flex flex-col justify-content-between static md:absolute p-24 md:max-w-536 l:max-w-736 sm:p-32 md:right-0 md:pl-0 l:py-88 l:pr-88 md:h-screen fadeinLeft">
               <div id="resume">
                 <div class="swiper mySwiper">
-                  <h2 class="font-semibold text-center">Experience</h2>
+                  <div class="swiper-header d-flex flex-row justify-content-between align-items-end mx-4">
+                    <p id="left-nav" class="font-light small text-start"></p>
+                    <h2 id="main-header" class="font-semibold text-center" style="margin-bottom: 0 !important">Experience</h2>
+                    <p id="right-nav" class="font-light small text-end"></p>
+                  </div>
                   <div class="swiper-wrapper">
                     <div id="Experience" class="swiper-slide">
                       <div class="d-flex flex-col justify-content-start gap-sm-2 xsm:gap flex-grow-1 my-4 mx-4">
@@ -128,43 +132,43 @@
                       </div>
                     </div>
                     <div id="Projects" class="swiper-slide">
-                      <div id="article-list" class="d-flex flex-col justify-content-start gap-sm-3 xsm:gap flex-grow-1 my-4 mx-4 py-4 px-4 hidden-scroll">
+                      <div id="article-list" class="d-flex flex-col justify-content-start gap-sm-3 xsm:gap flex-grow-1 my-4 mx-sm-4 px-sm-4 hidden-scroll">
                         <article class="d-inline-block article-item">
                           <a class="items-center" href="https://github.com/anhtien228/diveintocode-ml-graduation" rel="noopener noreferrer" target="_blank">
                               <h4 class="text-cyan font-med">Deep Learning</h4>
                               <h3 class="font-semibold mt-8">EfficientNetV2 Model Investigation</h3>
-                              <p class="font-thin mt-8 text-space">Implement EfficientNetV2 model for image classification.</p>
+                              <p class="font-thin mt-8 ">Implement EfficientNetV2 model for image classification.</p>
                           </a>
                         </article>
                         <article class="d-inline-block article-item">
                           <a class="items-center" href="https://github.com/anhtien228/web-based-ai" rel="noopener noreferrer" target="_blank">
                             <h4 class="text-cyan font-med">Natural Language Processing</h4>
                             <h3 class="font-semibold mt-8">Text Summarizer</h3>
-                            <p class="font-thin mt-8 text-space">Deploy text summarizer using BART model to Hugging Face.</p>
+                            <p class="font-thin mt-8 ">Deploy text summarizer using BART model to Hugging Face.</p>
                           </a>
                         </article>
                         <article class="d-inline-block article-item">
                           <a class="items-center" href="https://rythm-ktm2.herokuapp.com/" rel="noopener noreferrer" target="_blank">
                             <h4 class="text-cyan font-med">Web Application</h4>
                             <h3 class="font-semibold mt-8">Music Recommender</h3>
-                            <p class="font-thin mt-8 text-space">Deploy simple music recommender using K-Means clustering.</p>
+                            <p class="font-thin mt-8 ">Deploy simple music recommender using K-Means clustering.</p>
                           </a>
                         </article>
                         <article class="d-inline-block article-item">
                           <a class="items-center" href="https://github.com/anhtien228/diveintocode-ml" rel="noopener noreferrer" target="_blank">
                             <h4 class="text-cyan font-med">Machine Learning</h4>
                             <h3 class="font-semibold mt-8">DIVE INTO CODE Assignments</h3>
-                            <p class="font-thin mt-8 text-space">Exercises from DIVE INTO CODE Machine Learning Engineer course.</p>
+                            <p class="font-thin mt-8 ">Exercises from DIVE INTO CODE Machine Learning Engineer course.</p>
                           </a>
                         </article>
                       </div>
                     </div>
                     <div id="Blog" class="swiper-slide">
-                      <div id="blog-list" class="l:blog-container xsm:blog-container gap-sm-3 flex-grow-1 my-4 mx-4 py-4 px-4 hidden-scroll">
+                      <div id="blog-list" class="l:blog-container xsm:blog-container gap-sm-3 flex-grow-1 my-4 mx-sm-4 px-sm-4 hidden-scroll">
                         <article class="article-item blog-item">
                           <a class="items-center" href="blog/effnet.html" rel="noopener noreferrer" target="_blank">
                               <h4 class="text-cyan font-med">Deep Learning</h4>
-                              <p class="font-thin text-space">February 7, 2022</p>
+                              <p class="font-thin ">February 7, 2022</p>
                               <h3 class="font-semibold mt-8">Deep Learning: EfficientNetV2 Model in Computer Vision</h3>
                           </a>
                         </article>                    
@@ -174,6 +178,22 @@
                   <!-- <div class="swiper-button-prev"></div>
                   <div class="swiper-button-next"></div> -->
                   <div class="swiper-pagination"></div>
+                </div>
+                <div id="nav-guide" class="text-center mt-2">
+                  <p class="small">
+                    Use
+                    <span class="ms-sm-1">
+                      <img src="assets/up-arrow.png" style="filter: brightness(0) invert(1); transform:rotate(-90deg)" width="16" height="16">
+                    </span>
+                    <span class="me-sm-1">
+                      <img src="assets/up-arrow.png" style="filter: brightness(0) invert(1); transform:rotate(90deg)" width="16" height="16">
+                    </span>
+                    or
+                    <span class="ms-sm-1">
+                      <img src="assets/slide.png" style="filter: brightness(0) invert(1)" width="20" height="20">
+                    </span>
+                    the panel to switch section
+                  </p>
                 </div>
             </div>
           </div>

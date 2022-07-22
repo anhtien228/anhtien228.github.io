@@ -155,7 +155,7 @@
                         <figure class="kg-card kg-image-card kg-card-hascaption">
                             <img src="https://drive.google.com/uc?id=1TTSFVxUfX7Sed75tFKHDK5INo7A6gzDW"
                             class="kg-image lightense-target" alt="Model scaling for ConvNets" loading="lazy">
-                            <figcaption>Model Scaling. (a) is a baseline network example; (b)-(d) are conventional scaling that only increases one
+                            <figcaption>Figure 1. Model Scaling. (a) is a baseline network example; (b)-(d) are conventional scaling that only increases one
                                 dimension of network width, depth, or resolution. (e) is the proposed compound scaling method that uniformly scales
                                 all three dimensions with a fixed ratio by creators of EfficientNet</figcaption>
                         </figure>
@@ -189,7 +189,53 @@
                             \eta = F_k \odot ... \odot F_2 \odot F_1(X_1) = \odot_{j=1...k} F_j(X_1) \tag{2}\label{eq2}
                             $$
                         </p>
-                        To explain the notation of equation $\eqref{eq2}$, the hadamard product can be described as the product of two 3x3 matrices below: 
+                        To explain the notation of equation $\eqref{eq2}$, the hadamard product can be described as the product of two 3x3 matrices below:
+                        $$
+                        \begin{bmatrix} a & b & c \\ d & e & f \\ g & h & i \end{bmatrix}\odot\begin{bmatrix} j & k & l \\ m & n & o \\ p & q &
+                        r \end{bmatrix}= \begin{bmatrix} aj & bk & cl \\ dm & ne & fo \\ gp & hp & ir\end{bmatrix}
+                        $$
+                        <p>
+                            In a network, the operation of layers are often repeated $L_i$ times in each stage, thus the general formula of η:
+                            $$η = ⊙_{j = 1...s}F_i^{L_i}(X⟨H_i, W_i, C_i⟩) \tag{3}\label{eq3}$$
+                        </p>
+                        <p>
+                            So far, we have know the formula that describe the architecture Fi. Most regular ConvNet designs focus on finding
+                            the best $F_i$, meanwhile, the model scaling opt to change the network length ($L_i$), network width $(L_i)$, and/or
+                            resolution ($H_i, W_i$) without changing $F_i$ predefined in the baseline network. However, by changing these factors, it
+                            lead to the fact that a large design space will occurs in order to investigate different $L_i, C_i, H_i, W_i$ for each
+                            layer.
+                        </p>
+                        <p>
+                            <a class="text-cyan link link-underline" href="https://arxiv.org/abs/2104.00298"
+                            rel="noopener noreferrer" target="_blank">Creators of EfficientNet</a>
+                            came up with an idea that restrict all layers to be scaled up uniformly by a constant
+                            ratio. Their target is to maximize the model accuracy for any given resources constraints, which can be described as
+                            follow:
+                        </p>
+                        <figure class="kg-card kg-image-card kg-card-hascaption">
+                            <img src="https://drive.google.com/uc?id=1cDtqxUYokLAJ_6YBIHxwnx9tOk9ik82E"
+                            class="kg-image lightense-target" alt="Formula with coefficients for optimization" loading="lazy">
+                            <figcaption>Figure 2. Formula with coefficients for optimization
+                            </figcaption>
+                        </figure>
+                        <p>
+                            The yellow, orange and blue rectangles are the scaling constants for the method, the white box will then take all
+                            required parameters to form the formula, and the red rectangles represent for their target by applying the model
+                            scaling. In next section, we will discuss some problems of this optimization problem.
+                        </p>
+                        <h3 id="scaling-dimension" class="font-semibold">Scaling Dimensions</h3>
+                        <p>
+                            As we have know that the formula from Figure 2, choosing the optimal
+                            parameters d, w, r is quite tricky since they depend on each other, and in some different resource constraints these
+                            values may change. Therefore, the conventional method like Figure 1 (a), (b), (c),
+                            (d) from mostly scale ConvNets in one of these dimensions, and here is the table that sum-up the performance of each
+                            way:
+                        </p>
+                        <p>
+                            From their observation, the researchers conclude that "scaling up any dimension of network width, depth, or
+                            resolution improves accuracy, but the accuracy gain diminishes for bigger models" (<i>EfficientNetV2: Smaller Models
+                            and Faster Training</i>, 2020, p.4).
+                        </p>
                     </div>
                 </article>
             </div>

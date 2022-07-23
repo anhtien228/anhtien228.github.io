@@ -152,7 +152,7 @@
                             than 14 million images that capture different objects and indicate what they are, and in at least one million of the
                             images, bounding boxes are also provided.
                         </p>
-                        <figure class="kg-card kg-image-card kg-card-hascaption">
+                        <figure id="fig-1" class="kg-card kg-image-card kg-card-hascaption">
                             <img src="https://drive.google.com/uc?id=1TTSFVxUfX7Sed75tFKHDK5INo7A6gzDW"
                             class="kg-image lightense-target" alt="Model scaling for ConvNets" loading="lazy">
                             <figcaption>Figure 1. Model Scaling. (a) is a baseline network example; (b)-(d) are conventional scaling that only increases one
@@ -161,7 +161,7 @@
                         </figure>
                         <p>
                             When training model with more computational resources, we can either increase the network, width or resolution. The
-                            factors (coefficients) can be determined by a small grid search on the original smaller model. Figure 1 demonstrate
+                            factors (coefficients) can be determined by a small grid search on the original smaller model. <a class="text-cyan link link-underline" href="#fig-1">Figure 1</a> demonstrate
                             the difference between the compound scaling of the creators and other convetional methods.
                         </p>
                         <h3 id="optimization-problem" class="font-semibold">Optimization Problem</h3>
@@ -212,29 +212,67 @@
                             ratio. Their target is to maximize the model accuracy for any given resources constraints, which can be described as
                             follow:
                         </p>
-                        <figure class="kg-card kg-image-card kg-card-hascaption">
+                        <figure id="fig-2" class="kg-card kg-image-card kg-card-hascaption">
                             <img src="https://drive.google.com/uc?id=1cDtqxUYokLAJ_6YBIHxwnx9tOk9ik82E"
                             class="kg-image lightense-target" alt="Formula with coefficients for optimization" loading="lazy">
                             <figcaption>Figure 2. Formula with coefficients for optimization
                             </figcaption>
                         </figure>
                         <p>
-                            The yellow, orange and blue rectangles are the scaling constants for the method, the white box will then take all
-                            required parameters to form the formula, and the red rectangles represent for their target by applying the model
+                            The <span style="color: yellow">yellow</span>, <span style="color: orange">orange</span> and <span style="color: rgb(115, 211, 255)">blue</span> rectangles are the scaling constants for the method, the white box will then take all
+                            required parameters to form the formula, and the <span style="color: rgb(234, 122, 122)">red</span> rectangles represent for their target by applying the model
                             scaling. In next section, we will discuss some problems of this optimization problem.
                         </p>
                         <h3 id="scaling-dimension" class="font-semibold">Scaling Dimensions</h3>
                         <p>
-                            As we have know that the formula from Figure 2, choosing the optimal
+                            As we have know that the formula from <a class="text-cyan link link-underline" href="#fig-2">Figure 2</a>, choosing
+                            the optimal
                             parameters d, w, r is quite tricky since they depend on each other, and in some different resource constraints these
-                            values may change. Therefore, the conventional method like Figure 1 (a), (b), (c),
-                            (d) from mostly scale ConvNets in one of these dimensions, and here is the table that sum-up the performance of each
+                            values may change. Therefore, the conventional method like <a class="text-cyan link link-underline"
+                                href="#fig-1">Figure 1 (a), (b), (c), (d)</a> from mostly scale ConvNets in one of these dimensions, and here is
+                            the table that sum-up the performance of each
                             way:
+
+                            $$
+                            \scriptsize{ 
+                                \begin{array}{|c|c|c|}
+                                \textbf{Dimension} & Pros & Cons \\\hline
+                                \textbf{Depth (d)} & \text{- Capture richer & more complex features} & \text{- Face vanishing gradient problem} \\\hline
+                                \textbf{Width (w)} & \displaylines{\text{- Capture more fine-grained features} \\ \text{- Easier to train}} & \displaylines{\displaylines{\text{- Hard to capture higher level feature} \\ \text{(wide but shallow network)}} \\ \text{- Face vanishing gradient problem}} \\\hline
+                                \textbf{Resolution (r)} & \displaylines{\text{- Capture more fine-grained patterns} \\ \displaylines{\text{- Higher resolution means higher accuracy,} \\ \text{capable of achieves state-of-the-art}}} & \text{- Face vanishing gradient problem} \\\hline
+                                \end{array}
+                            }
+                            $$
                         </p>
                         <p>
                             From their observation, the researchers conclude that "scaling up any dimension of network width, depth, or
                             resolution improves accuracy, but the accuracy gain diminishes for bigger models" (<i>EfficientNetV2: Smaller Models
                             and Faster Training</i>, 2020, p.4).
+                        </p>
+                        <h3 id="compound-scaling" class="font-semibold">Compound Scaling</h3>
+                        <p>
+                            In the later experiment, the researchers pointed out that balancing different dimensions scaling ratio would be
+                            better than conventional single-dimension scaling. And to validate this point, they use different network depths and
+                            resolutions, altogether with the width scaling. Results show that, by using width scaling without changing depth (d)
+                            and resolution (r), the accuracy will be diminished.
+                        </p>
+                        <p>
+                            However, with deeper d and higher resolution r, width scaling
+                            method achieves better accuracy while maintaining the same Floating Point Operations Per Second (FLOPS) cost. As a
+                            result, they gave a second point of view that "In order to pursue better accuracy and efficiency, it is critical to
+                            balance all dimensions of network width, depth, and resolution during ConvNet scaling." (<i>EfficientNetV2: Smaller Models
+                            and Faster Training</i>, 2020, p.4).
+                        </p>
+                        <p>
+                            As said, the creators of EfficientNet proposed a new compound scaling method, which use a coefficient ϕ to uniformly
+                            scales network width, depth and resolution:
+                            $$
+                            \begin{aligned}
+                                depth: d = \alpha^\phi\\
+                                width: w = \beta^\phi\\
+                                resolution: r = \gamma^\phi
+                            \end{aligned}
+                            $$
                         </p>
                     </div>
                 </article>

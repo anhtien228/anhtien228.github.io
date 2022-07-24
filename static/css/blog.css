@@ -154,6 +154,28 @@
     font-family: 'Gilroy Light';
 }
 
+.f-article-content blockquote {
+    position: relative;
+    color: white;
+    line-height: 1.8;
+    font-size: 1.125rem;
+    font-family: 'Gilroy Medium';
+    font-style: italic;
+    padding-left: 1.85rem;
+    margin: 0 0 1.5625rem;
+}
+
+.f-article-content blockquote:before {
+    content: "\275D";
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: var(--green);
+    line-height: 1;
+    font-size: 2.0rem;
+    font-weight: 600;
+}
+
 .lightense-target {
     /* cursor: zoom-in; */
     transition: transform 300ms cubic-bezier(.2, 0, .1, 1);
@@ -162,6 +184,23 @@
 
 .MJX-TEX{
     color: var(--secondary-text-color) !important;
+}
+
+.table-info * {
+    list-style: square;
+}
+
+.table-info li {
+    margin-bottom: 0.35rem;
+}
+
+#reference-list i {
+    font-weight: 600;
+}
+
+#reference-list li:not(:last-child) {
+    font-family: 'Gilroy Light' !important;
+    margin-bottom: 1rem !important;
 }
 
 
@@ -234,6 +273,11 @@
     .f-article-content figure .kg-image,
     .f-article-content figure img {
         margin-bottom: 0.9375rem;
+    }
+    .f-article-content blockquote {
+        line-height: 1.6;
+        font-size: 1.1rem;
+        margin-bottom: 2.1875rem;
     }
 }
 

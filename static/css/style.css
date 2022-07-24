@@ -325,16 +325,65 @@ blockquote, dd, dl, figure, h1, h2, h3, h4, h5, h6, hr, p, pre {
     font-size: 1.25rem;
 }
 
-/* #about-me {} */
+.back-to-top {
+    display: inline-block;
+    background-color: white;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    transition: background-color .3s,
+        opacity .5s, visibility .5s;
+    opacity: 0;
+    visibility: hidden;
+    z-index: 1000;
+}
 
-/* #information {} */
+.back-to-home {
+    display: inline-block;
+    background-color: white;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    position: fixed;
+    top: 30px;
+    left: 30px;
+    opacity: 0.5;
+    transition: all ease-in 250ms; 
+    z-index: 1000;
+}
 
-/* #contact {} */
+.back-to-home i {
+    align-self: center;
+    line-height: 50px;
+    color: #1d1d1d;
+}
 
-/* #portfolio {} */
+.back-to-top i {
+    align-self: center;
+    font-size: 2em;
+    line-height: 50px;
+    color: #1d1d1d;
+}
 
-/*#blogs {} */
+.back-to-top.show:hover, .back-to-home:hover {
+    cursor: pointer;
+    transition: all ease-in 250ms; 
+    opacity: 1;
+    background-color: rgba(255, 255, 255, 0.884);
+}
 
+.back-to-top:active, .back-to-home:active {
+    background-color: rgb(255, 255, 255);
+}
+
+.back-to-top.show {
+    opacity: 0.5;
+    visibility: visible;
+}
+  
 /*================== ANIMATION ================ */
 /* Chrome, Safari, Opera */
 .fadein {

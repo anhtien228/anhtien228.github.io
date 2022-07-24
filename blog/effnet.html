@@ -10,6 +10,7 @@
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/all.css">
     <title>Deep Learning: EfficientNetV2 Model in Computer Vision</title>
     <meta name="robots" content="index,follow">
     <meta name="description"
@@ -73,24 +74,24 @@
                             the creator to make the libraries, tools and framework to be more concise and user-friendly.
                         </p>
                         <p>
-                            As as student that major in Computer Science and Engineering, my interests in Data Science and ML has been charmed
-                            with the appearance of the Machine Learning Engineer course by DIVE INTO CODE. Being a learner for more than one
+                            As as student that major in Computer Science and Engineering, my interests in Data Science and ML has been rousen
+                            with the help of the Machine Learning Engineer course by DIVE INTO CODE. Being a learner for more than one
                             year, the course has convey a lot of useful theories and practical problem to brush my skills. This blog is
-                            created to demonstrate the final assignment for my graduation at DIVE INTO CODE, and everything here is served to
-                            describe my work in details.
+                            created to demonstrate the a portion of the final assignment for my graduation at DIVE INTO CODE.
                         </p>
                         <p>
-                            For the project, I chose to participate to a contest called 
+                            For the project, I chose to work on an old contest called 
                             <a href="https://challenge.zalo.ai" class="text-cyan link link-underline"
                             rel="noopener noreferrer" target="_blank">Zalo AI Challenge 2021</a>
                             , the fourth-year of an annual
                             online competition for Vietnam’s AI engineers to explore AI technologies and impact life in exciting new ways. In
                             2021, the competition consist of 3 main problems, and my work is related to one of them, the 
-                            <a href="https://challenge.zalo.ai" class="text-cyan link link-underline"
+                            <a href="https://challenge.zalo.ai/portal/5k-compliance" class="text-cyan link link-underline"
                             rel="noopener noreferrer" target="_blank">5K Compliance</a>
                             .
                         </p>
-                        <h2 id="overview" class="font-semibold">Competition overview</h2>
+
+                        <h2 id="overview" class="font-semibold">Project Overview</h2>
                         <p>
                             In this section, I will briefly explain about the meaning of the name, the description and rules of the challenge,
                             and the dataset that need to be interpreted on.
@@ -102,6 +103,7 @@
                             technology may help. In this challenge, you will create algorithm to detect whether or not a person or group of
                             individuals in a picture adhere to the <b><u>mask</u></b> and <b><u>distance</u></b> standards.
                         </p>
+                        
                         <h4 id="rules" class="text-center link link-underline" style="width: fit-content; cursor: auto">
                             <b>Basic rules</b>
                         </h4>
@@ -127,13 +129,15 @@
                             </figure>
                         </div>
 
-                        <h2 id="background-method" class="font-semibold">Background & Methodologies</h2>
+                        <h2 id="efficientnet" class="font-semibold">EfficientNet</h2>
                         <p>
-                            In this section, we will have a discussion about the methodologies, models that our project has implemented and
-                            applied. This will enable reader to understand the mechanism behind them and how useful they are in this specific
-                            image detection field. The first part will mainly focus on the EfficientNet baseline model first.
+                            As mentioned, in this blog particularly, we only discuss about the model that my project has implemented and
+                            applied, which is <b><u>EfficientNetV2</u></b>. However, I'd also like to write about its predecessor, the <b><u>EfficientNet</u></b>
+                            This will enable reader to understand the mechanism behind them and how useful they are in this specific
+                            image detection field.
                         </p>
-                        <h3 id="efficientnet" class="font-semibold">EfficientNet</h3>
+
+                        <h3 id="origin" class="font-semibold">Origin</h3>
                         <p>
                             Convolutional Neural Networks (ConvNets) are frequently constructed with a limited resource budget and then scaled
                             up for improved accuracy as more resources become available.
@@ -141,8 +145,8 @@
                             rel="noopener noreferrer" target="_blank">Creators of EfficientNet</a>
                             has conducted a research
                             paper, in which they study model scaling and learn that better accuracy or resources efficiency can be reached if we
-                            could balance the network depth, width, and resolution. They proposed a new scaling method uses a simple but very
-                            effective compound scaling method to scale all depth/width/resolution dimensions equally.
+                            could balance the network depth, width, and resolution. They proposed a new scaling method that uses a simple but very
+                            effective mechanism to scale all depth/width/resolution dimensions equally.
                         </p>
                         <p>
                             The researchers also design a family of models to evaluate its performance and size. The dataset used in their study
@@ -152,6 +156,7 @@
                             than 14 million images that capture different objects and indicate what they are, and in at least one million of the
                             images, bounding boxes are also provided.
                         </p>
+
                         <figure id="fig-1" class="kg-card kg-image-card kg-card-hascaption">
                             <img src="https://drive.google.com/uc?id=1TTSFVxUfX7Sed75tFKHDK5INo7A6gzDW"
                             class="kg-image lightense-target" alt="Model scaling for ConvNets" loading="lazy">
@@ -159,11 +164,13 @@
                                 dimension of network width, depth, or resolution. (e) is the proposed compound scaling method that uniformly scales
                                 all three dimensions with a fixed ratio by creators of EfficientNet</figcaption>
                         </figure>
+
                         <p>
                             When training model with more computational resources, we can either increase the network, width or resolution. The
                             factors (coefficients) can be determined by a small grid search on the original smaller model. <a class="text-cyan link link-underline" href="#fig-1">Figure 1</a> demonstrate
                             the difference between the compound scaling of the creators and other convetional methods.
                         </p>
+
                         <h3 id="optimization-problem" class="font-semibold">Optimization Problem</h3>
                         <p>
                             As the model scaling factor is quite complex yet still be one of the interesting of these researches, so I had tried
@@ -212,17 +219,20 @@
                             ratio. Their target is to maximize the model accuracy for any given resources constraints, which can be described as
                             follow:
                         </p>
+
                         <figure id="fig-2" class="kg-card kg-image-card kg-card-hascaption">
                             <img src="https://drive.google.com/uc?id=1cDtqxUYokLAJ_6YBIHxwnx9tOk9ik82E"
                             class="kg-image lightense-target" alt="Formula with coefficients for optimization" loading="lazy">
                             <figcaption>Figure 2. Formula with coefficients for optimization
                             </figcaption>
                         </figure>
+
                         <p>
                             The <span style="color: yellow">yellow</span>, <span style="color: orange">orange</span> and <span style="color: rgb(115, 211, 255)">blue</span> rectangles are the scaling constants for the method, the white box will then take all
                             required parameters to form the formula, and the <span style="color: rgb(234, 122, 122)">red</span> rectangles represent for their target by applying the model
                             scaling. In next section, we will discuss some problems of this optimization problem.
                         </p>
+
                         <h3 id="scaling-dimension" class="font-semibold">Scaling Dimensions</h3>
                         <p>
                             As we have know that the formula from <a class="text-cyan link link-underline" href="#fig-2">Figure 2</a>, choosing
@@ -232,23 +242,66 @@
                                 href="#fig-1">Figure 1 (a), (b), (c), (d)</a> from mostly scale ConvNets in one of these dimensions, and here is
                             the table that sum-up the performance of each
                             way:
-
-                            $$
-                            \scriptsize{ 
-                                \begin{array}{|c|c|c|}
-                                \textbf{Dimension} & Pros & Cons \\\hline
-                                \textbf{Depth (d)} & \text{- Capture richer & more complex features} & \text{- Face vanishing gradient problem} \\\hline
-                                \textbf{Width (w)} & \displaylines{\text{- Capture more fine-grained features} \\ \text{- Easier to train}} & \displaylines{\displaylines{\text{- Hard to capture higher level feature} \\ \text{(wide but shallow network)}} \\ \text{- Face vanishing gradient problem}} \\\hline
-                                \textbf{Resolution (r)} & \displaylines{\text{- Capture more fine-grained patterns} \\ \displaylines{\text{- Higher resolution means higher accuracy,} \\ \text{capable of achieves state-of-the-art}}} & \text{- Face vanishing gradient problem} \\\hline
-                                \end{array}
-                            }
-                            $$
                         </p>
+                        <table class="table table-striped table-dark table-info small">
+                            <thead>
+                              <tr>
+                                <th scope="col">Dimensions</th>
+                                <th scope="col">Pros</th>
+                                <th scope="col">Cons</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <th scope="row" style="width: 150px">Depth (d)</th>
+                                <td>
+                                    <ul>
+                                        <li>Capture richer & more complex features</li>
+                                    </ul>
+                                </td>
+                                <td>
+                                    <ul>
+                                        <li>Face vanishing gradient problem</li>
+                                    </ul>
+                                </td>
+                              </tr>
+                              <tr>
+                                <th scope="row">Width (w)</th>
+                                <td>
+                                    <ul>
+                                        <li>Capture more fine-grained features</li>
+                                        <li>Easier to train</li>
+                                    </ul>
+                                </td>
+                                <td>
+                                    <ul>
+                                        <li>Hard to capture higher level feature (wide but shallow network)</li>
+                                        <li>Face vanishing gradient problem</li>
+                                    </ul>
+                                </td>
+                              </tr>
+                              <tr>
+                                <th scope="row">Resolution (r)</th>
+                                <td>
+                                    <ul>
+                                        <li>Capture more fine-grained patterns</li>
+                                        <li>Higher resolution means higher accuracy, capable of achieves state-of-the-art</li>
+                                    </ul>
+                                </td>
+                                <td>
+                                    <ul>
+                                        <li>Face vanishing gradient problem</li>
+                                    </ul>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
                         <p>
                             From their observation, the researchers conclude that "scaling up any dimension of network width, depth, or
                             resolution improves accuracy, but the accuracy gain diminishes for bigger models" (<i>EfficientNetV2: Smaller Models
                             and Faster Training</i>, 2020, p.4).
                         </p>
+
                         <h3 id="compound-scaling" class="font-semibold">Compound Scaling</h3>
                         <p>
                             In the later experiment, the researchers pointed out that balancing different dimensions scaling ratio would be
@@ -271,17 +324,236 @@
                                 depth: d = \alpha^\phi\\
                                 width: w = \beta^\phi\\
                                 resolution: r = \gamma^\phi
-                            \end{aligned}
+                            \end{aligned} \tag{4}\label{eq4}
                             $$
                         </p>
+                        <p>
+                            The coefficient ϕ will determine how many more resources that will be used for model scaling operation and it is
+                            specified by user. Meanwhile, α, β, γ will specify how to assign these extra resources to the network width, depth
+                            and resolution.
+                        </p>
+                        <p>
+                            What is more notable is that when increase d, w, r in convolution operation, the FLOPS also increases (proportion to
+                            those factors). Specifically, when double the depth, FLOPS will proportional to d and is doubled. And when we double
+                            the width or resolution will cause the FLOPS to be increased four times since it is proportional to w2, r2. As
+                            convolution operation is a major part in ConvNets, scaling the model with equation $\eqref{eq4}$ will
+                            increase the FLOPS by (α.β2.γ2)ϕ. The researchers opted to limit this increase by putting a constraint α.β2.γ2 ≈ 2,
+                            thus the total FLOPS will approximately increase by 2ϕ for any given ϕ.
+                        </p>
+
+                        <h3 id="model-architecture" class="font-semibold">Model Architecture</h3>
+                        <p>
+                            The researchers decided to design a new mobile-size baseline called <b><u>EfficientNet</u></b> to evaluate their scaling method.
+                            They adapt and use the multi-objective neural architecture search inspired from <a class="text-cyan link link-underline" href="https://arxiv.org/abs/1807.11626"
+                            rel="noopener noreferrer" target="_blank">MnasNet</a> (Mingxing Tan et al. 2019) to develop the
+                            baseline that optimizes both accuracy and FLOPS. The researchers come up with sort of optimization formula that
+                            involve accuracy, FLOPS, the target FLOPS and a hyperparameter for controlling the trade-off between accuracy and
+                            FLOPS.
+                        </p>
+                        <p>
+                            From the beginning, they completed the baseline EfficientNet-B0, and then applied the proposed compound scaling method to scale it up with two steps:
+                        </p>
+
+                        <figure id="fig-3" class="kg-card kg-image-card kg-card-hascaption">
+                            <img src="https://drive.google.com/uc?id=19k2M0FtLbynUhK3G5sMf2pNRhNoUg7Cv"
+                            class="kg-image lightense-target" alt="Architecture expansion using compound scaling method" loading="lazy">
+                            <figcaption>Figure 3. Architecture expansion using compound scaling method
+                            </figcaption>
+                        </figure>
+
+                        <h3 id="model-architecture" class="font-semibold">Performance experiments</h3>
+                        <p>
+                            First, the researchers evaluate their scaling method on the existing ConvNets such as MobileNets and ResNet, along
+                            with the ImageNet database. The results showed that their compound scaling method, comparing to other
+                            single-dimension scaling method, has improved the accuracy on all evaluated models and prove its effectiveness.
+                        </p>
+                        <p>
+                            Second, they train the EfficientNet models on the ImageNet database using an RMSProp optimizer with the configured
+                            parameters as that of <a class="text-cyan link link-underline" href="https://arxiv.org/abs/1807.11626"
+                            rel="noopener noreferrer" target="_blank">MnasNet</a>, and other customized settings. The EfficienNet achieved much better
+                            accuracy than GPipe, ConvNets, ResNets while being dramatically smaller in size and computational cheaper than
+                            mentioned models (fewer FLOPS). One example is that the EfficientNet-B3 achieves higher accuracy than <a class="text-cyan link link-underline" href="https://arxiv.org/abs/1611.05431"
+                            rel="noopener noreferrer" target="_blank">ResNeXt101</a>
+                            using 18x fewer FLOPS.
+                        </p>
+
+                        <h3 id="effnet-achievement" class="font-semibold">Achievements</h3>
+                        <p>
+                            The creators of EfficientNet and compound scaling method has studied and proposed their solution that
+                            can balance the network width, depth and resolution in a more principled way for any given resources constraints.
+                            Based on this factor, they develop a mobile-size EfficientNet model that can be scaled effectively to different
+                            sizes, with a much be better state-of-the-art accuracy and fewer parameters and FLOPS. Their work has been evaluated
+                            on the ImageNet and other five commonly used datasets and proved its effectiveness and influence.
+                        </p>
+
+                        <h2 id="effnet-2" class="font-semibold">EfficientNetV2</h2>
+                        <p>
+                            A year later, the same creators Mingxing Tan and Quoc V.Le also proposed <a class="text-cyan link link-underline" href="https://arxiv.org/abs/2104.00298"
+                            rel="noopener noreferrer" target="_blank">EfficientNetV2</a>, a
+                            new family of convolutional networks and also an upgraded version of EfficientNet, which has faster training speed
+                            and and better parameter efficiency compared to the previous models.
+                        </p>
+                        <p>
+                            The researchers use a combination of training-aware Neural Architecture Search (NAS) and scaling. They indicated
+                            that the training process can be sped up by increasing the image size, but it may results in the drop of accuracy.
+                            Therefore, they proposed a new method of <b><u>progressive learning</u></b> which adaptively adjusts regularization along with
+                            image size. The EfficientNetV2 achieved a better accuracy than previous models, performed significantly faster while
+                            using the same computational resources (FLOPS).
+                        </p>
+
+                        <blockquote>Progressive learning? That sounds cool though.</blockquote>
+
+                        <h3 id="nas-model-architecture" class="font-semibold">NAS & Model architecture</h3>
+                        <p>Before heading to the explanation of progressive learning, we will have a look at the NAS and the model structure of EfficientNetV2.</p>
+                        <p>
+                            The researchers develop a training-aware NAS framework with EfficientNet as backbone that optimize accuracy,
+                            parameter efficiency, and training efficiency. The NAS search adapt an mechanism which is a search space that
+                            consist of multiple design choices for convolutional operation types, number of layers, kernel size, expansion
+                            ratio.
+                        </p>
+                        <p>
+                            In short, the researchers will use the proposed training-aware NAS to search for the best combinations of architecture design in order to improve the training speed.
+                        </p>
+                        <p>
+                            As mentioned, the search space includes many options, the researchers managed to remove unnecessary search options
+                            like pooling skip operation since it was not used in the EfficientNet. This lead to the smaller search space so they
+                            can add reinforcement learning into it. And in addition to that, they reuse the same channel sizes from the backbone
+                            which has been used in the study of EfficientNet.
+                        </p>
+                        <p>
+                            They come up with the first version EfficientNetV2-S (S stands for Small). There are major differences between the EfficientNetV2 and the backbone EfficientNet:
+                            <ol style="list-style:decimal; padding-left: 2rem !important">
+                                <li>
+                                    Use both MBConv from <a class="text-cyan link link-underline" href="https://arxiv.org/abs/1801.04381"
+                                    rel="noopener noreferrer" target="_blank">MobileNetV2</a>, their EfficientNet and the <a class="text-cyan link link-underline" href="https://arxiv.org/abs/2003.02838"
+                                    rel="noopener noreferrer" target="_blank">fused-MBConv</a>
+                                    <figure id="fig-4" class="kg-card kg-image-card kg-card-hascaption">
+                                        <img src="https://drive.google.com/uc?id=1RYROtoLy_FzLKT_SGKD4KMpBa_cZ_GO_"
+                                        class="kg-image lightense-target" alt="Comparision of MBConv and fused-MBConv structure" loading="lazy">
+                                        <figcaption>Figure 4. Comparision of MBConv and fused-MBConv structure
+                                        </figcaption>
+                                    </figure>
+                                </li>
+                                <li class="mb-4">
+                                    EfficientNetV2 prefers smaller expansion ratio for MBConv since smaller expansion ratios tend to have less memory access overhead
+                                </li>
+                                <li class="mb-4">
+                                    EfficientNetV2 prefers smaller 3x3 kernel sizes, but it adds more layers to compensate the reduced receptive field resulted from the smaller kernel size
+                                </li>
+                                <li class="mb-4">
+                                    EfficientNetV2 completely removes the last stride-1 stage in the original EfficientNet
+                                </li>
+                            </ol>
+                        </p>
+                        <p>
+                            Similarly to their previous work, they also scale up the EfficientNetV2-S to obtain the expanded EfficientNetV2-M/L
+                            by using the compound scaling method. A small experiment has been conducted to compare the training speed of
+                            EfficientNetV2 and other models in the scenario: without progressive learning. With the training-aware NAS and
+                            scaling, the EfficientNetV2 model witnessed a <b>better training speed</b> than the other recent models.
+                        </p>
+
+                        <h3 id="progressive-learning" class="font-semibold">Progressive Learning</h3>
+                        <p>
+                            As the term progressive learning has been indicated once in Section <a href="#effnet-2">EfficientNetV2</a>, here we will investigate
+                            further the effect of this proposed method.
+                        </p>
+                        <p>
+                            Basically, some works dynamically change image sizes, which may cause in drop of accuracy. This maybe come from the
+                            unbalance regularization. Therefore, the researchers consider that instead of having fixed regularization, we should
+                            adjust it <a class="text-cyan">accordingly to the image size changes</a>.
+                        </p>
+                        <p>
+                            Since the procedure of progressive learning is hard to described in a detailed mathematically way, I will re-use a
+                            statement from their paper that can briefly demonstrate its mechanism: "..in the early training epochs, we train the
+                            network with smaller images and weak regularization, such that the network can learn simple representations easily
+                            and fast. Then, we gradually increase image size but also making learning more difficult by adding stronger
+                            regularization." Some of the types of regularization are Dropout, RandAugment, Mixup.
+                        </p>
+                        <h3 id="effnet-dataset" class="font-semibold">ImageNet1k and ImageNet21k</h3>
+                        <p>
+                            The ImageNet1k is a dataset contains about 1.28M training images and 50,000 validation images with 1000 classes.
+                            Meanwhile, the ImageNet21k (Full ImageNet, Fall 2011 release) contains about 13M training images with 21,841
+                            classes. The researchers did use the ImageNet21k to pretrain the EfficientNetV2, following by fine-tuning it on the
+                            ImageNet1k using the cosine learning rate decay. In the end, the EfficientNetV2 that is trained on imagenet-21k and
+                            fine-tuned on ImageNet1K has improved the accuracy, used <a class="text-cyan">2.5 times fewer parameters</a> and <a class="text-cyan">3.6 times fewer FLOPS</a>, while
+                            <a class="text-cyan">running 6-7 times faster</a>.
+                        </p>
+                        <h2 id="conclusion" class="font-semibold">Conclusion</h2>
+                        <p>
+                            In conclusion, the EfficientNetV2 surpasses earlier models while being more quicker and more efficient in
+                            parameters, thanks to training-aware NAS and model scaling. The researchers presented an enhanced approach of
+                            progressive learning that raises picture size and regularization simultaneously during training to speed up the
+                            process even more. Extensive testing shows that their EfficientNetV2 performs well on ImageNet and
+                            CIFAR/Flowers/Cars.
+                        </p>
+                        <p>
+                            In addition, EfficientNetV2 trains up to 11 times quicker while being 6.8 times smaller than
+                            EfficientNet and other recent research. They also scale up the baseline EfficientNetV2-S into larger size model like
+                            EfficientV2-M/L, while also scale down into different smaller size like EfficientNetV2-B0/B1/B2/B3 to compare with
+                            original EfficientNet variants, along with some pretrained and finetuned version.
+                        </p>
+                        
+                        <h4 id="my-commment" class="font-semibold">Personal comment</h4>
+                        <p>
+                            As for myself, the problem and competition is very interesting and give me a lot of experience as well as practices.
+                            I have learned a lot from carry out the graduation assignment.
+                        </p>
+                        <p>                      
+                            The EfficientNet and EfficientNetV2 are indeed interesting architecture with impressive mechanism and methods
+                            integrated with them. As said, it would be a good experience or even a good choice using them in some specific
+                            problem where you need faster training time, decent accuracy while having less computational resources under
+                            constraints.
+                        </p>
+
+                        <h2 id="acknowledgement" class="font-semibold">Acknowledgements</h2>
+                        <p>
+                            I deeply thank Quan Thanh Tho, Noro Hiroyoshi, Mouhamed Diop, Jules Ntaganda, Iradukunda Peter Yves, Cedrick Justin,
+                            other mentors and staffs of DIVE INTO CODE for offering this course and their support throughout the lessons.
+                            Withour their help, I could not carrying out the work nor writing up this blog by myself.
+                        </p>        
+                        <h2 id="references" class="font-semibold">References</h2>
+                        <ul id="reference-list">
+                            <li>
+                                Saining Xie et al. <i>Aggregated Residual Transformations for Deep Neural Networks</i>. 2017. <br>arXiv: <a class="text-cyan link link-underline" href="https://arxiv.org/abs/1611.05431"
+                                rel="noopener noreferrer" target="_blank">1611.05431 [cs.CV]</a>.
+                            </li>
+                            <li>
+                                Mark Sandler et al. <i>MobileNetV2: Inverted Residuals and Linear Bottle-
+                                necks</i>. 2019. <br>arXiv: <a class="text-cyan link link-underline" href="https://arxiv.org/abs/1801.04381"
+                                rel="noopener noreferrer" target="_blank">1801.04381 [cs.CV]</a>
+                            </li>
+                            <li>
+                                Mingxing Tan et al. <i>MnasNet: Platform-Aware Neural Architecture Search
+                                for Mobile</i>. 2019. <br>arXiv: <a class="text-cyan link link-underline" href="https://arxiv.org/abs/1807.11626"
+                                rel="noopener noreferrer" target="_blank">1807.11626 [cs.CV]</a>
+                            </li>
+                            <li>
+                                Suyog Gupta and Berkin Akin. <i>Accelerator-aware Neural Network Design
+                                using AutoML</i>. 2020. <br>arXiv: <a class="text-cyan link link-underline" href="https://arxiv.org/abs/2003.02838"
+                                rel="noopener noreferrer" target="_blank">2003.02838 [eess.SP]</a>
+                            </li>
+                            <li>
+                                Mingxing Tan and Quoc V. Le. <i>EfficientNet: Rethinking Model Scaling for
+                                Convolutional Neural Networks</i>. 2020. <br>arXiv: <a class="text-cyan link link-underline" href="https://arxiv.org/abs/1905.11946"
+                                rel="noopener noreferrer" target="_blank">1905.11946 [cs.LG]</a>
+                            </li>
+                            <li>
+                                Mingxing Tan and Quoc V. Le. <i>EfficientNetV2: Smaller Models and Faster
+                                Training</i>. 2021. <br>arXiv: <a class="text-cyan link link-underline" href="https://arxiv.org/abs/2104.00298"
+                                rel="noopener noreferrer" target="_blank">2104.00298 [cs.CV]</a>
+                            </li>
+                        </ul>       
                     </div>
                 </article>
             </div>
         </main>
     </div>
+    <a href="../index.html" class="back-to-home fadein"><i class="fa-solid fa-house"></i></a>
+    <a class="back-to-top fadeinUp"><i class="fa-solid fa-caret-up"></i></a>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" async defer
         integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous">
     </script>
+    <script src="js/style.js"></script>
         
 </body>
 

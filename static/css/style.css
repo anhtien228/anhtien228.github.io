@@ -351,7 +351,7 @@ blockquote, dd, dl, figure, h1, h2, h3, h4, h5, h6, hr, p, pre {
     top: 30px;
     left: 30px;
     opacity: 0.5;
-    transition: all ease-in 250ms; 
+    transition: all ease-in 100ms; 
     z-index: 1000;
 }
 
@@ -370,7 +370,7 @@ blockquote, dd, dl, figure, h1, h2, h3, h4, h5, h6, hr, p, pre {
 
 .back-to-top.show:hover, .back-to-home:hover {
     cursor: pointer;
-    transition: all ease-in 250ms; 
+    transition: all ease-in 100ms; 
     opacity: 1;
     background-color: rgba(255, 255, 255, 0.884);
 }

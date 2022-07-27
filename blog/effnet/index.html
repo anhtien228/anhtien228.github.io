@@ -36,20 +36,20 @@
     </script>
 </head>
 
-<body class="overflow-x-hidden bg-obsidian">
+<body class="overflow-x-hidden bg-angel">
     <div class="f-main-container">
-        <main class="f-standard-container has-newsletter js-standard-container font-gilroy" role="main">
+        <main class="f-standard-container has-newsletter js-standard-container font-gilroy text-space" role="main">
             <div class="f-standard-wrapper in-post">
                 <article class="f-article js-article">
                     <header class="f-article-header fadeinDown">
-                        <h1 class="f-article-header__title js-article-title font-semibold">
+                        <h1 class="f-article-header__title js-article-title font-bold">
                                 Deep Learning: EfficientNetV2 Model in Computer Vision
                             </h1>
-                            <p class=" f-article-header__excerpt in-post">
+                            <p class=" f-article-header__excerpt in-post font-med">
                                 This blog provides to you the concept and the architecture of EfficientNetV2 family model. You will gain an
                                 understanding of this deep neural network, its performance and applications in computer vision field.
                             </p>
-                            <p class="f-article-header__time">
+                            <p class="f-article-header__time font-med">
                                 <span>February 7, 2022</span>
                                 <span>&nbsp; • &nbsp;</span>
                                 <span>15 min read</span>
@@ -66,8 +66,8 @@
                                 </span>
                             </div>
                     </header>
-                    <div class="f-article-content js-article-content fadeinRight text-space">
-                        <h2 id="introduction" class="font-semibold">Introduction</h2>
+                    <div class="f-article-content js-article-content fadeinRight">
+                        <h2 id="introduction" class="font-bold">Introduction</h2>
                         <p> 
                             There is no doubt that machine learning is becoming well-known these days not only to
                             developer, but also common businesses due to its simplicity, all thanks to the efforts of
@@ -81,17 +81,17 @@
                         </p>
                         <p>
                             For the project, I chose to work on an old contest called 
-                            <a href="https://challenge.zalo.ai" class="text-cyan link link-underline"
+                            <a href="https://challenge.zalo.ai" class="text-highlight link link-underline"
                             rel="noopener noreferrer" target="_blank">Zalo AI Challenge 2021</a>
                             , the fourth-year of an annual
                             online competition for Vietnam’s AI engineers to explore AI technologies and impact life in exciting new ways. In
                             2021, the competition consist of 3 main problems, and my work is related to one of them, the 
-                            <a href="https://challenge.zalo.ai/portal/5k-compliance" class="text-cyan link link-underline"
+                            <a href="https://challenge.zalo.ai/portal/5k-compliance" class="text-highlight link link-underline"
                             rel="noopener noreferrer" target="_blank">5K Compliance</a>
                             .
                         </p>
 
-                        <h2 id="overview" class="font-semibold">Project Overview</h2>
+                        <h2 id="overview" class="font-bold">Project Overview</h2>
                         <p>
                             In this section, I will briefly explain about the meaning of the name, the description and rules of the challenge,
                             and the dataset that need to be interpreted on.
@@ -129,7 +129,7 @@
                             </figure>
                         </div>
 
-                        <h2 id="efficientnet" class="font-semibold">EfficientNet</h2>
+                        <h2 id="efficientnet" class="font-bold">EfficientNet</h2>
                         <p>
                             As mentioned, in this blog particularly, we only discuss about the model that my project has implemented and
                             applied, which is <b><u>EfficientNetV2</u></b>. However, I'd also like to write about its predecessor, the <b><u>EfficientNet</u></b>
@@ -137,11 +137,11 @@
                             image detection field.
                         </p>
 
-                        <h3 id="origin" class="font-semibold">Origin</h3>
+                        <h3 id="origin" class="font-bold">Origin</h3>
                         <p>
                             Convolutional Neural Networks (ConvNets) are frequently constructed with a limited resource budget and then scaled
                             up for improved accuracy as more resources become available.
-                            <a class="text-cyan link link-underline" href="https://arxiv.org/abs/2104.00298"
+                            <a class="text-highlight link link-underline" href="https://arxiv.org/abs/2104.00298"
                             rel="noopener noreferrer" target="_blank">Creators of EfficientNet</a>
                             has conducted a research
                             paper, in which they study model scaling and learn that better accuracy or resources efficiency can be reached if we
@@ -150,7 +150,7 @@
                         </p>
                         <p>
                             The researchers also design a family of models to evaluate its performance and size. The dataset used in their study
-                            is <a class="text-cyan link link-underline" href="https://www.image-net.org"
+                            is <a class="text-highlight link link-underline" href="https://www.image-net.org"
                             rel="noopener noreferrer" target="_blank">ImageNet</a>
                             which is a large database of annotated photographs intended for computer vision research. It has more
                             than 14 million images that capture different objects and indicate what they are, and in at least one million of the
@@ -167,11 +167,11 @@
 
                         <p>
                             When training model with more computational resources, we can either increase the network, width or resolution. The
-                            factors (coefficients) can be determined by a small grid search on the original smaller model. <a class="text-cyan link link-underline" href="#fig-1">Figure 1</a> demonstrate
+                            factors (coefficients) can be determined by a small grid search on the original smaller model. <a class="text-highlight link link-underline" href="#fig-1">Figure 1</a> demonstrate
                             the difference between the compound scaling of the creators and other convetional methods.
                         </p>
 
-                        <h3 id="optimization-problem" class="font-semibold">Optimization Problem</h3>
+                        <h3 id="optimization-problem" class="font-bold">Optimization Problem</h3>
                         <p>
                             As the model scaling factor is quite complex yet still be one of the interesting of these researches, so I had tried
                             my best to make the explanation simpler.
@@ -213,7 +213,7 @@
                             layer.
                         </p>
                         <p>
-                            <a class="text-cyan link link-underline" href="https://arxiv.org/abs/2104.00298"
+                            <a class="text-highlight link link-underline" href="https://arxiv.org/abs/2104.00298"
                             rel="noopener noreferrer" target="_blank">Creators of EfficientNet</a>
                             came up with an idea that restrict all layers to be scaled up uniformly by a constant
                             ratio. Their target is to maximize the model accuracy for any given resources constraints, which can be described as
@@ -228,17 +228,17 @@
                         </figure>
 
                         <p>
-                            The <span style="color: yellow">yellow</span>, <span style="color: orange">orange</span> and <span style="color: rgb(115, 211, 255)">blue</span> rectangles are the scaling constants for the method, the white box will then take all
-                            required parameters to form the formula, and the <span style="color: rgb(234, 122, 122)">red</span> rectangles represent for their target by applying the model
+                            The <span class="font-bold" style="color: rgb(224, 224, 53)">yellow</span>, <span class="font-bold" style="color: rgb(221, 148, 13)">orange</span> and <span class="font-bold" style="color: rgb(65, 155, 197)">blue</span> rectangles are the scaling constants for the method, the white box will then take all
+                            required parameters to form the formula, and the <span class="font-bold" style="color: rgb(183, 68, 68)">red</span> rectangles represent for their target by applying the model
                             scaling. In next section, we will discuss some problems of this optimization problem.
                         </p>
 
-                        <h3 id="scaling-dimension" class="font-semibold">Scaling Dimensions</h3>
+                        <h3 id="scaling-dimension" class="font-bold">Scaling Dimensions</h3>
                         <p>
-                            As we have know that the formula from <a class="text-cyan link link-underline" href="#fig-2">Figure 2</a>, choosing
+                            As we have know that the formula from <a class="text-highlight link link-underline" href="#fig-2">Figure 2</a>, choosing
                             the optimal
                             parameters d, w, r is quite tricky since they depend on each other, and in some different resource constraints these
-                            values may change. Therefore, the conventional method like <a class="text-cyan link link-underline"
+                            values may change. Therefore, the conventional method like <a class="text-highlight link link-underline"
                                 href="#fig-1">Figure 1 (a), (b), (c), (d)</a> from mostly scale ConvNets in one of these dimensions, and here is
                             the table that sum-up the performance of each
                             way:
@@ -302,7 +302,7 @@
                             and Faster Training</i>, 2020, p.4).
                         </p>
 
-                        <h3 id="compound-scaling" class="font-semibold">Compound Scaling</h3>
+                        <h3 id="compound-scaling" class="font-bold">Compound Scaling</h3>
                         <p>
                             In the later experiment, the researchers pointed out that balancing different dimensions scaling ratio would be
                             better than conventional single-dimension scaling. And to validate this point, they use different network depths and
@@ -341,10 +341,10 @@
                             thus the total FLOPS will approximately increase by 2ϕ for any given ϕ.
                         </p>
 
-                        <h3 id="model-architecture" class="font-semibold">Model Architecture</h3>
+                        <h3 id="model-architecture" class="font-bold">Model Architecture</h3>
                         <p>
                             The researchers decided to design a new mobile-size baseline called <b><u>EfficientNet</u></b> to evaluate their scaling method.
-                            They adapt and use the multi-objective neural architecture search inspired from <a class="text-cyan link link-underline" href="https://arxiv.org/abs/1807.11626"
+                            They adapt and use the multi-objective neural architecture search inspired from <a class="text-highlight link link-underline" href="https://arxiv.org/abs/1807.11626"
                             rel="noopener noreferrer" target="_blank">MnasNet</a> (Mingxing Tan et al. 2019) to develop the
                             baseline that optimizes both accuracy and FLOPS. The researchers come up with sort of optimization formula that
                             involve accuracy, FLOPS, the target FLOPS and a hyperparameter for controlling the trade-off between accuracy and
@@ -361,7 +361,7 @@
                             </figcaption>
                         </figure>
 
-                        <h3 id="model-architecture" class="font-semibold">Performance experiments</h3>
+                        <h3 id="model-architecture" class="font-bold">Performance experiments</h3>
                         <p>
                             First, the researchers evaluate their scaling method on the existing ConvNets such as MobileNets and ResNet, along
                             with the ImageNet database. The results showed that their compound scaling method, comparing to other
@@ -369,15 +369,15 @@
                         </p>
                         <p>
                             Second, they train the EfficientNet models on the ImageNet database using an RMSProp optimizer with the configured
-                            parameters as that of <a class="text-cyan link link-underline" href="https://arxiv.org/abs/1807.11626"
+                            parameters as that of <a class="text-highlight link link-underline" href="https://arxiv.org/abs/1807.11626"
                             rel="noopener noreferrer" target="_blank">MnasNet</a>, and other customized settings. The EfficienNet achieved much better
                             accuracy than GPipe, ConvNets, ResNets while being dramatically smaller in size and computational cheaper than
-                            mentioned models (fewer FLOPS). One example is that the EfficientNet-B3 achieves higher accuracy than <a class="text-cyan link link-underline" href="https://arxiv.org/abs/1611.05431"
+                            mentioned models (fewer FLOPS). One example is that the EfficientNet-B3 achieves higher accuracy than <a class="text-highlight link link-underline" href="https://arxiv.org/abs/1611.05431"
                             rel="noopener noreferrer" target="_blank">ResNeXt101</a>
                             using 18x fewer FLOPS.
                         </p>
 
-                        <h3 id="effnet-achievement" class="font-semibold">Achievements</h3>
+                        <h3 id="effnet-achievement" class="font-bold">Achievements</h3>
                         <p>
                             The creators of EfficientNet and compound scaling method has studied and proposed their solution that
                             can balance the network width, depth and resolution in a more principled way for any given resources constraints.
@@ -386,9 +386,9 @@
                             on the ImageNet and other five commonly used datasets and proved its effectiveness and influence.
                         </p>
 
-                        <h2 id="effnet-2" class="font-semibold">EfficientNetV2</h2>
+                        <h2 id="effnet-2" class="font-bold">EfficientNetV2</h2>
                         <p>
-                            A year later, the same creators Mingxing Tan and Quoc V.Le also proposed <a class="text-cyan link link-underline" href="https://arxiv.org/abs/2104.00298"
+                            A year later, the same creators Mingxing Tan and Quoc V.Le also proposed <a class="text-highlight link link-underline" href="https://arxiv.org/abs/2104.00298"
                             rel="noopener noreferrer" target="_blank">EfficientNetV2</a>, a
                             new family of convolutional networks and also an upgraded version of EfficientNet, which has faster training speed
                             and and better parameter efficiency compared to the previous models.
@@ -403,7 +403,7 @@
 
                         <blockquote>Progressive learning? That sounds cool though.</blockquote>
 
-                        <h3 id="nas-model-architecture" class="font-semibold">NAS & Model architecture</h3>
+                        <h3 id="nas-model-architecture" class="font-bold">NAS & Model architecture</h3>
                         <p>Before heading to the explanation of progressive learning, we will have a look at the NAS and the model structure of EfficientNetV2.</p>
                         <p>
                             The researchers develop a training-aware NAS framework with EfficientNet as backbone that optimize accuracy,
@@ -424,8 +424,8 @@
                             They come up with the first version EfficientNetV2-S (S stands for Small). There are major differences between the EfficientNetV2 and the backbone EfficientNet:
                             <ol style="list-style:decimal; padding-left: 2rem !important">
                                 <li>
-                                    Use both MBConv from <a class="text-cyan link link-underline" href="https://arxiv.org/abs/1801.04381"
-                                    rel="noopener noreferrer" target="_blank">MobileNetV2</a>, their EfficientNet and the <a class="text-cyan link link-underline" href="https://arxiv.org/abs/2003.02838"
+                                    Use both MBConv from <a class="text-highlight link link-underline" href="https://arxiv.org/abs/1801.04381"
+                                    rel="noopener noreferrer" target="_blank">MobileNetV2</a>, their EfficientNet and the <a class="text-highlight link link-underline" href="https://arxiv.org/abs/2003.02838"
                                     rel="noopener noreferrer" target="_blank">fused-MBConv</a>
                                     <figure id="fig-4" class="kg-card kg-image-card kg-card-hascaption">
                                         <img src="https://drive.google.com/uc?id=1RYROtoLy_FzLKT_SGKD4KMpBa_cZ_GO_"
@@ -452,7 +452,7 @@
                             scaling, the EfficientNetV2 model witnessed a <b>better training speed</b> than the other recent models.
                         </p>
 
-                        <h3 id="progressive-learning" class="font-semibold">Progressive Learning</h3>
+                        <h3 id="progressive-learning" class="font-bold">Progressive Learning</h3>
                         <p>
                             As the term progressive learning has been indicated once in Section <a href="#effnet-2">EfficientNetV2</a>, here we will investigate
                             further the effect of this proposed method.
@@ -460,7 +460,7 @@
                         <p>
                             Basically, some works dynamically change image sizes, which may cause in drop of accuracy. This maybe come from the
                             unbalance regularization. Therefore, the researchers consider that instead of having fixed regularization, we should
-                            adjust it <a class="text-cyan">accordingly to the image size changes</a>.
+                            adjust it <a class="text-highlight">accordingly to the image size changes</a>.
                         </p>
                         <p>
                             Since the procedure of progressive learning is hard to described in a detailed mathematically way, I will re-use a
@@ -469,16 +469,16 @@
                             and fast. Then, we gradually increase image size but also making learning more difficult by adding stronger
                             regularization." Some of the types of regularization are Dropout, RandAugment, Mixup.
                         </p>
-                        <h3 id="effnet-dataset" class="font-semibold">ImageNet1k and ImageNet21k</h3>
+                        <h3 id="effnet-dataset" class="font-bold">ImageNet1k and ImageNet21k</h3>
                         <p>
                             The ImageNet1k is a dataset contains about 1.28M training images and 50,000 validation images with 1000 classes.
                             Meanwhile, the ImageNet21k (Full ImageNet, Fall 2011 release) contains about 13M training images with 21,841
                             classes. The researchers did use the ImageNet21k to pretrain the EfficientNetV2, following by fine-tuning it on the
                             ImageNet1k using the cosine learning rate decay. In the end, the EfficientNetV2 that is trained on imagenet-21k and
-                            fine-tuned on ImageNet1K has improved the accuracy, used <a class="text-cyan">2.5 times fewer parameters</a> and <a class="text-cyan">3.6 times fewer FLOPS</a>, while
-                            <a class="text-cyan">running 6-7 times faster</a>.
+                            fine-tuned on ImageNet1K has improved the accuracy, used <a class="text-highlight">2.5 times fewer parameters</a> and <a class="text-highlight">3.6 times fewer FLOPS</a>, while
+                            <a class="text-highlight">running 6-7 times faster</a>.
                         </p>
-                        <h2 id="conclusion" class="font-semibold">Conclusion</h2>
+                        <h2 id="conclusion" class="font-bold">Conclusion</h2>
                         <p>
                             In conclusion, the EfficientNetV2 surpasses earlier models while being more quicker and more efficient in
                             parameters, thanks to training-aware NAS and model scaling. The researchers presented an enhanced approach of
@@ -493,7 +493,7 @@
                             original EfficientNet variants, along with some pretrained and finetuned version.
                         </p>
                         
-                        <h4 id="my-commment" class="font-semibold">Personal comment</h4>
+                        <h4 id="my-commment" class="font-bold">Personal comment</h4>
                         <p>
                             As for myself, the problem and competition is very interesting and give me a lot of experience as well as practices.
                             I have learned a lot from carry out the graduation assignment.
@@ -505,41 +505,41 @@
                             constraints.
                         </p>
 
-                        <h2 id="acknowledgement" class="font-semibold">Acknowledgements</h2>
+                        <h2 id="acknowledgement" class="font-bold">Acknowledgements</h2>
                         <p>
                             I deeply thank Quan Thanh Tho, Noro Hiroyoshi, Mouhamed Diop, Jules Ntaganda, Iradukunda Peter Yves, Cedrick Justin,
                             other mentors and staffs of DIVE INTO CODE for offering this course and their support throughout the lessons.
                             Withour their help, I could not carrying out the work nor writing up this blog by myself.
                         </p>        
-                        <h2 id="references" class="font-semibold">References</h2>
+                        <h2 id="references" class="font-bold">References</h2>
                         <ul id="reference-list">
                             <li>
-                                Saining Xie et al. <i>Aggregated Residual Transformations for Deep Neural Networks</i>. 2017. <br>arXiv: <a class="text-cyan link link-underline" href="https://arxiv.org/abs/1611.05431"
+                                Saining Xie et al. <i>Aggregated Residual Transformations for Deep Neural Networks</i>. 2017. <br>arXiv: <a class="text-highlight link link-underline" href="https://arxiv.org/abs/1611.05431"
                                 rel="noopener noreferrer" target="_blank">1611.05431 [cs.CV]</a>.
                             </li>
                             <li>
                                 Mark Sandler et al. <i>MobileNetV2: Inverted Residuals and Linear Bottle-
-                                necks</i>. 2019. <br>arXiv: <a class="text-cyan link link-underline" href="https://arxiv.org/abs/1801.04381"
+                                necks</i>. 2019. <br>arXiv: <a class="text-highlight link link-underline" href="https://arxiv.org/abs/1801.04381"
                                 rel="noopener noreferrer" target="_blank">1801.04381 [cs.CV]</a>
                             </li>
                             <li>
                                 Mingxing Tan et al. <i>MnasNet: Platform-Aware Neural Architecture Search
-                                for Mobile</i>. 2019. <br>arXiv: <a class="text-cyan link link-underline" href="https://arxiv.org/abs/1807.11626"
+                                for Mobile</i>. 2019. <br>arXiv: <a class="text-highlight link link-underline" href="https://arxiv.org/abs/1807.11626"
                                 rel="noopener noreferrer" target="_blank">1807.11626 [cs.CV]</a>
                             </li>
                             <li>
                                 Suyog Gupta and Berkin Akin. <i>Accelerator-aware Neural Network Design
-                                using AutoML</i>. 2020. <br>arXiv: <a class="text-cyan link link-underline" href="https://arxiv.org/abs/2003.02838"
+                                using AutoML</i>. 2020. <br>arXiv: <a class="text-highlight link link-underline" href="https://arxiv.org/abs/2003.02838"
                                 rel="noopener noreferrer" target="_blank">2003.02838 [eess.SP]</a>
                             </li>
                             <li>
                                 Mingxing Tan and Quoc V. Le. <i>EfficientNet: Rethinking Model Scaling for
-                                Convolutional Neural Networks</i>. 2020. <br>arXiv: <a class="text-cyan link link-underline" href="https://arxiv.org/abs/1905.11946"
+                                Convolutional Neural Networks</i>. 2020. <br>arXiv: <a class="text-highlight link link-underline" href="https://arxiv.org/abs/1905.11946"
                                 rel="noopener noreferrer" target="_blank">1905.11946 [cs.LG]</a>
                             </li>
                             <li>
                                 Mingxing Tan and Quoc V. Le. <i>EfficientNetV2: Smaller Models and Faster
-                                Training</i>. 2021. <br>arXiv: <a class="text-cyan link link-underline" href="https://arxiv.org/abs/2104.00298"
+                                Training</i>. 2021. <br>arXiv: <a class="text-highlight link link-underline" href="https://arxiv.org/abs/2104.00298"
                                 rel="noopener noreferrer" target="_blank">2104.00298 [cs.CV]</a>
                             </li>
                         </ul>       

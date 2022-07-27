@@ -1,8 +1,9 @@
 * {
     --green: rgb(8, 253, 216);
-    --foreground-color: white;
-    --primary-text-color: rgb(231, 231, 231);
-    --secondary-text-color: #e2dfdf;
+    --dark-green: rgb(0, 164, 151);
+    --foreground-color: black;
+    --primary-text-color: black;
+    --secondary-text-color: #1d1d1d;
     --mobile-space: 1.25rem;
     --small-wrapper-max-width: 45rem;
     --standard-wrapper-max-width: 75rem;
@@ -68,9 +69,9 @@
 .f-article-header__time {
     display: flex;
     align-items: center;
-    color: var(--green);
+    color: var(--dark-green);
     line-height: 1.4;
-    font-size: .875rem;
+    font-size: .95rem;
     margin-bottom: 2.1875rem !important;
 }
 
@@ -151,12 +152,12 @@
     text-align: center;
     line-height: 1.4;
     font-size: .75rem;
-    font-family: 'Gilroy Light';
+    font-family: 'Gilroy Regular';
 }
 
 .f-article-content blockquote {
     position: relative;
-    color: white;
+    color: inherit;
     line-height: 1.8;
     font-size: 1.125rem;
     font-family: 'Gilroy Medium';
@@ -170,7 +171,7 @@
     position: absolute;
     left: 0;
     top: 0;
-    color: var(--green);
+    color: var(--dark-green);
     line-height: 1;
     font-size: 2.0rem;
     font-weight: 600;
@@ -199,7 +200,6 @@
 }
 
 #reference-list li:not(:last-child) {
-    font-family: 'Gilroy Light' !important;
     margin-bottom: 1rem !important;
 }
 

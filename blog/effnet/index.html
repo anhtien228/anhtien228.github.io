@@ -38,36 +38,36 @@
 
 <body class="overflow-x-hidden bg-angel">
     <div class="f-main-container">
-        <main class="f-standard-container has-newsletter js-standard-container font-gilroy text-space" role="main">
+        <main class="f-standard-container has-newsletter js-standard-container font-regular" role="main">
             <div class="f-standard-wrapper in-post">
                 <article class="f-article js-article">
                     <header class="f-article-header fadeinDown">
-                        <h1 class="f-article-header__title js-article-title font-bold">
-                                Deep Learning: EfficientNetV2 Model in Computer Vision
-                            </h1>
-                            <p class=" f-article-header__excerpt in-post font-med">
-                                This blog provides to you the concept and the architecture of EfficientNetV2 family model. You will gain an
-                                understanding of this deep neural network, its performance and applications in computer vision field.
-                            </p>
-                            <p class="f-article-header__time font-med">
-                                <span>February 7, 2022</span>
-                                <span>&nbsp; • &nbsp;</span>
-                                <span>15 min read</span>
-                            </p>
-                            <div class="f-article-header__author">
-                                <a href="../index.html" class="f-avatar in-article-header "
-                                    aria-label="Samhita Alla's profile'" aria-haspopup="false">
-                                    <img alt="" class="lazy loaded rounded-full" width="45" height="45"
-                                        data-ll-status="loaded" src="../../assets/pfp.png">
-                                </a>
-                                <span class="ms-4">
-                                    By
-                                    <a href="../index.html" class="link link-underline">Doan Anh Tien</a>
-                                </span>
-                            </div>
+                        <h1 class="f-article-header__title js-article-title font-black">
+                            Deep Learning: EfficientNetV2 Model in Computer Vision
+                        </h1>
+                        <p class=" f-article-header__excerpt in-post">
+                            This blog provides to you the concept and the architecture of EfficientNetV2 family model. You will gain an
+                            understanding of this deep neural network, its performance and applications in computer vision field.
+                        </p>
+                        <p class="f-article-header__time font-med">
+                            <span>February 7, 2022</span>
+                            <span>&nbsp; • &nbsp;</span>
+                            <span>15 min read</span>
+                        </p>
+                        <div class="f-article-header__author">
+                            <a href="../index.html" class="f-avatar in-article-header " aria-label="Samhita Alla's profile'"
+                                aria-haspopup="false">
+                                <img alt="" class="lazy loaded rounded-full" width="45" height="45" data-ll-status="loaded"
+                                    src="../../assets/pfp.png">
+                            </a>
+                            <span class="ms-4">
+                                By
+                                <a href="../index.html" class="link link-underline">Doan Anh Tien</a>
+                            </span>
+                        </div>
                     </header>
                     <div class="f-article-content js-article-content fadeinRight">
-                        <h2 id="introduction" class="font-bold">Introduction</h2>
+                        <h2 id="introduction" class="font-black">Introduction</h2>
                         <p> 
                             There is no doubt that machine learning is becoming well-known these days not only to
                             developer, but also common businesses due to its simplicity, all thanks to the efforts of
@@ -91,7 +91,7 @@
                             .
                         </p>
 
-                        <h2 id="overview" class="font-bold">Project Overview</h2>
+                        <h2 id="overview" class="font-black">Project Overview</h2>
                         <p>
                             In this section, I will briefly explain about the meaning of the name, the description and rules of the challenge,
                             and the dataset that need to be interpreted on.
@@ -129,7 +129,7 @@
                             </figure>
                         </div>
 
-                        <h2 id="efficientnet" class="font-bold">EfficientNet</h2>
+                        <h2 id="efficientnet" class="font-black">EfficientNet</h2>
                         <p>
                             As mentioned, in this blog particularly, we only discuss about the model that my project has implemented and
                             applied, which is <b><u>EfficientNetV2</u></b>. However, I'd also like to write about its predecessor, the <b><u>EfficientNet</u></b>
@@ -196,11 +196,13 @@
                             \eta = F_k \odot ... \odot F_2 \odot F_1(X_1) = \odot_{j=1...k} F_j(X_1) \tag{2}\label{eq2}
                             $$
                         </p>
-                        To explain the notation of equation $\eqref{eq2}$, the hadamard product can be described as the product of two 3x3 matrices below:
-                        $$
-                        \begin{bmatrix} a & b & c \\ d & e & f \\ g & h & i \end{bmatrix}\odot\begin{bmatrix} j & k & l \\ m & n & o \\ p & q &
-                        r \end{bmatrix}= \begin{bmatrix} aj & bk & cl \\ dm & ne & fo \\ gp & hp & ir\end{bmatrix}
-                        $$
+                        <p>
+                            To explain the notation of equation $\eqref{eq2}$, the hadamard product can be described as the product of two 3x3 matrices below:
+                            $$
+                            \begin{bmatrix} a & b & c \\ d & e & f \\ g & h & i \end{bmatrix}\odot\begin{bmatrix} j & k & l \\ m & n & o \\ p & q &
+                            r \end{bmatrix}= \begin{bmatrix} aj & bk & cl \\ dm & ne & fo \\ gp & hp & ir\end{bmatrix}
+                            $$
+                        </p>
                         <p>
                             In a network, the operation of layers are often repeated $L_i$ times in each stage, thus the general formula of η:
                             $$η = ⊙_{j = 1...s}F_i^{L_i}(X⟨H_i, W_i, C_i⟩) \tag{3}\label{eq3}$$
@@ -337,7 +339,7 @@
                             those factors). Specifically, when double the depth, FLOPS will proportional to d and is doubled. And when we double
                             the width or resolution will cause the FLOPS to be increased four times since it is proportional to w2, r2. As
                             convolution operation is a major part in ConvNets, scaling the model with equation $\eqref{eq4}$ will
-                            increase the FLOPS by (α.β2.γ2)ϕ. The researchers opted to limit this increase by putting a constraint α.β2.γ2 ≈ 2,
+                            increase the FLOPS by $(α\cdot β^2 \cdot γ^2)\cdot ϕ$. The researchers opted to limit this increase by putting a constraint $α \cdot β^2 \cdot γ^2  ≈ 2$,
                             thus the total FLOPS will approximately increase by 2ϕ for any given ϕ.
                         </p>
 
@@ -386,7 +388,7 @@
                             on the ImageNet and other five commonly used datasets and proved its effectiveness and influence.
                         </p>
 
-                        <h2 id="effnet-2" class="font-bold">EfficientNetV2</h2>
+                        <h2 id="effnet-2" class="font-black">EfficientNetV2</h2>
                         <p>
                             A year later, the same creators Mingxing Tan and Quoc V.Le also proposed <a class="text-highlight link link-underline" href="https://arxiv.org/abs/2104.00298"
                             rel="noopener noreferrer" target="_blank">EfficientNetV2</a>, a
@@ -478,7 +480,7 @@
                             fine-tuned on ImageNet1K has improved the accuracy, used <a class="text-highlight">2.5 times fewer parameters</a> and <a class="text-highlight">3.6 times fewer FLOPS</a>, while
                             <a class="text-highlight">running 6-7 times faster</a>.
                         </p>
-                        <h2 id="conclusion" class="font-bold">Conclusion</h2>
+                        <h2 id="conclusion" class="font-black">Conclusion</h2>
                         <p>
                             In conclusion, the EfficientNetV2 surpasses earlier models while being more quicker and more efficient in
                             parameters, thanks to training-aware NAS and model scaling. The researchers presented an enhanced approach of
@@ -505,13 +507,13 @@
                             constraints.
                         </p>
 
-                        <h2 id="acknowledgement" class="font-bold">Acknowledgements</h2>
+                        <h2 id="acknowledgement" class="font-black">Acknowledgements</h2>
                         <p>
                             I deeply thank Quan Thanh Tho, Noro Hiroyoshi, Mouhamed Diop, Jules Ntaganda, Iradukunda Peter Yves, Cedrick Justin,
                             other mentors and staffs of DIVE INTO CODE for offering this course and their support throughout the lessons.
                             Withour their help, I could not carrying out the work nor writing up this blog by myself.
                         </p>        
-                        <h2 id="references" class="font-bold">References</h2>
+                        <h2 id="references" class="font-black">References</h2>
                         <ul id="reference-list">
                             <li>
                                 Saining Xie et al. <i>Aggregated Residual Transformations for Deep Neural Networks</i>. 2017. <br>arXiv: <a class="text-highlight link link-underline" href="https://arxiv.org/abs/1611.05431"

@@ -1,9 +1,9 @@
 * {
     --green: rgb(8, 253, 216);
-    --dark-green: rgb(0, 164, 151);
+    --dark-green: rgb(5, 110, 101);
     --foreground-color: black;
-    --primary-text-color: black;
-    --secondary-text-color: #1d1d1d;
+    --primary-text-color: #1d1d1d;
+    --secondary-text-color: #505050;
     --mobile-space: 1.25rem;
     --small-wrapper-max-width: 45rem;
     --standard-wrapper-max-width: 75rem;
@@ -115,13 +115,13 @@
     color: var(--foreground-color);
 }
 
-.f-article-content h4 {
-    font-size: 1.1875rem !important;
+.f-article-content h3 {
+    font-size: 1.20625rem !important;
     color: var(--foreground-color);
 }
 
 .f-article-content h4 {
-    font-size: 1.0625rem !important;
+    font-size: 1rem !important;
     color: var(--foreground-color);
 }
 
@@ -151,8 +151,8 @@
 .f-article-content figure figcaption {
     text-align: center;
     line-height: 1.4;
-    font-size: .75rem;
-    font-family: 'Gilroy Regular';
+    font-size: .65rem;
+    font-family: 'Google Regular';
 }
 
 .f-article-content blockquote {
@@ -160,8 +160,7 @@
     color: inherit;
     line-height: 1.8;
     font-size: 1.125rem;
-    font-family: 'Gilroy Medium';
-    font-style: italic;
+    font-family: 'Google Medium';
     padding-left: 1.85rem;
     margin: 0 0 1.5625rem;
 }
@@ -177,6 +176,10 @@
     font-weight: 600;
 }
 
+ol, ul {
+    font-size: 1rem;
+}
+
 .lightense-target {
     /* cursor: zoom-in; */
     transition: transform 300ms cubic-bezier(.2, 0, .1, 1);
@@ -184,7 +187,7 @@
 }
 
 .MJX-TEX{
-    color: var(--secondary-text-color) !important;
+    color: var(--primary-text-color) !important;
 }
 
 .table-info * {
@@ -196,7 +199,7 @@
 }
 
 #reference-list i {
-    font-weight: 600;
+    font-family: 'Google Medium';
 }
 
 #reference-list li:not(:last-child) {
@@ -209,11 +212,22 @@
         line-height: 1.2 !important;
         font-size: 2.4413rem !important;
         padding-top: 0.625rem !important;
+        margin-top: 1.5625rem !important;
         margin-bottom: 1.5625rem !important;
     }
 
+    .f-article-content h3 {
+        font-size: 2.0rem !important;
+        color: var(--foreground-color);
+    }
+    
+    .f-article-content h4 {
+        font-size: 1.1625rem !important;
+        color: var(--foreground-color);
+    }
+
     .f-article-content p {
-        font-size: 1.0625rem !important;
+        font-size: 1.1625rem !important;
         margin-bottom: 2.1875rem !important;
     }
 
@@ -227,7 +241,7 @@
     }
 
     .f-article-header__excerpt {
-        font-size: 1.125rem;
+        font-size: 1.1625rem;
         max-width: 40rem;
     }
 
@@ -276,8 +290,17 @@
     }
     .f-article-content blockquote {
         line-height: 1.6;
-        font-size: 1.1rem;
+        font-size: 1.2rem;
         margin-bottom: 2.1875rem;
+    }
+
+    .f-article-content.kg-image-card figcaption,
+    .f-article-content figure figcaption {
+        font-size: .95rem;
+    }
+
+    ol, ul {
+        font-size: 1.1625rem !important;
     }
 }
 

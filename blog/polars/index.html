@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" class="bg-obsidian js">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, width=device-width">
+    <link rel="stylesheet" href="../../static/css/style.css">
+    <link rel="stylesheet" href="../../static/css/blog.css">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../assets/pfp.png">
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/all.css">
+    <title>Polars: An alternative DataFrame library to Pandas</title>
+    <meta name="robots" content="index,follow">
+    <meta name="description"
+        content="Doan Anh Tien | A blog about Polars - an alternative DataFrame library. We also have a look on some common usages and the performance between Polars and Pandas.">
+    <meta property="author" content="Doan Anh Tien">
+    <meta property="og:site_name" content="Doan Anh Tien's Blog">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Polars: An alternative DataFrame library to Pandas">
+    <meta property="og:description"
+        content="Doan Anh Tien | A blog about Polars - an alternative DataFrame library. We also have a look on some common usages and the performance between Polars and Pandas.">
+    <!-- JQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script>
+        MathJax = {
+          tex: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']]
+          },
+          color: '#dcf6ff'
+        };
+    </script>
+    <script id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+    </script>
+</head>
+
+<body class="overflow-x-hidden bg-angel">
+    <div class="f-main-container">
+        <main class="f-standard-container has-newsletter js-standard-container font-regular text-space" role="main">
+            <div class="f-standard-wrapper in-post">
+                <article class="f-article js-article">
+                    <header class="f-article-header fadeinDown">
+                        <h1 class="f-article-header__title js-article-title font-black">
+                            Polars: An alternative DataFrame library to Pandas
+                        </h1>
+                        <p class=" f-article-header__excerpt in-post">
+                            This blog provides to you an overview of the emerging DataFrame library called Polars.
+                            You will gain an understanding of this library from its foundation to some common expressions,
+                            and wrap up with a performance comparision between it and Pandas.
+                        </p>
+                        <p class="f-article-header__time font-med">
+                            <span>February 7, 2022</span>
+                            <span>&nbsp; • &nbsp;</span>
+                            <span>15 min read</span>
+                        </p>
+                        <div class="f-article-header__author">
+                            <a href="../index.html" class="f-avatar in-article-header " aria-label="Samhita Alla's profile'"
+                                aria-haspopup="false">
+                                <img alt="" class="lazy loaded rounded-full" width="45" height="45" data-ll-status="loaded"
+                                    src="../../assets/pfp.png">
+                            </a>
+                            <span class="ms-4">
+                                By
+                                <a href="../index.html" class="link link-underline">Doan Anh Tien</a>
+                            </span>
+                        </div>
+                    </header>
+                    <div class="f-article-content js-article-content fadeinRight">
+                        <h2 id="introduction" class="font-bold">Introduction</h2>
+                        <p>
+                            When it comes to choosing a library or framework to work with DataFrame, there exists a wide selection for us to choose
+                            such as Pandas, Modin, or Dask. Each of these tools have their own strengths in terms
+                            of execution speed, memory efficiency, parallel computing or ease of utilize.
+                        </p>
+                        <p>
+                            Among of the existing ones, Pandas is no doubt the most famous Python library for working with structured data, specfically DataFrame.
+                            Due to its ease of use and being built on a facile programming language like Python, Pandas has been entrusted and been used from simple analyses to
+                            to a more complex data manipulation or automative data pipelines.
+                        </p>
+                        <p>
+                            With a large amount of data available in these days, the demand for such high speed execution on DataFrame has lead to the emergence
+                            of some alternatives to Pandas. For me personally, the most interesting one is Polars, a library that offer a better performance while maintaining
+                            the simplicty of uses to anyone who has experience with Pandas. 
+                        </p>
+                        <p style="margin-bottom: 0.5rem !important">To find out if Polars truly outshine Pandas, we will explore it throughout these sections:</p>
+                        <ol style="list-style:decimal; padding-left: 2rem !important">
+                            <li class="mb-1">What is Polars?</li>
+                            <li class="mb-1">Polars vs. Pandas</li>
+                            <li class="mb-1">Usages of Polars</li>
+                            <li>Performance comparision</li>
+                        </ol>
+                    </div>
+                </article>
+            </div>
+        </main>
+    </div>
+    <a href="../../index" class="back-to-home fadein"><i class="fa-solid fa-house"></i></a>
+    <a class="back-to-top fadeinUp"><i class="fa-solid fa-caret-up"></i></a>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" async defer
+        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous">
+    </script>
+    <script src="../js/style.js"></script>
+        
+</body>
+
+</html>

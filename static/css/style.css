@@ -784,7 +784,6 @@ blockquote, dd, dl, figure, h1, h2, h3, h4, h5, h6, hr, p, pre {
     }
 
     .l\:blog-container .blog-item {
-        display: inline-block;
         margin: 0 0 1rem;
         page-break-inside: avoid;
         -moz-column-break-inside: avoid;
@@ -817,12 +816,16 @@ blockquote, dd, dl, figure, h1, h2, h3, h4, h5, h6, hr, p, pre {
     transition: all 0.2s ease-in
 }
 
-@media (min-width: 380px) {
+@media (min-width: 375px) {
+    .swiper-header {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+
     .swiper-header #left-nav {
         flex-basis: 30px;
         flex-shrink: 0;
         flex-grow: 1;
-        padding-left: 0;
     }
 
     .swiper-header #main-header {
@@ -834,7 +837,6 @@ blockquote, dd, dl, figure, h1, h2, h3, h4, h5, h6, hr, p, pre {
         flex-basis: 30px;
         flex-shrink: 0;
         flex-grow: 1;
-        padding-right: 0;
     }
 }
 
@@ -843,7 +845,6 @@ blockquote, dd, dl, figure, h1, h2, h3, h4, h5, h6, hr, p, pre {
         flex-basis: 30px;
         flex-shrink: 0;
         flex-grow: 1;
-        padding-left: 1.5rem;
     }
 
     .swiper-header #main-header {
@@ -855,7 +856,6 @@ blockquote, dd, dl, figure, h1, h2, h3, h4, h5, h6, hr, p, pre {
         flex-basis: 30px;
         flex-shrink: 0;
         flex-grow: 1;
-        padding-right: 1.5rem;
     }
 }
 

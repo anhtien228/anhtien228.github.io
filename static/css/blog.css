@@ -5,6 +5,7 @@
     --primary-text-color: #1d1d1d;
     --secondary-text-color: #505050;
     --mobile-space: 1.25rem;
+    --mask-color: #f6f9fc;
     --small-wrapper-max-width: 45rem;
     --standard-wrapper-max-width: 75rem;
 }
@@ -176,6 +177,15 @@
     font-weight: 600;
 }
 
+.f-article-content code {
+    font-size: 1.15rem;
+}
+
+.f-article-content code,
+.f-article-content pre {
+    border-radius: 0.3125rem;
+}
+
 ol, ul {
     font-size: 1rem;
 }
@@ -218,6 +228,8 @@ ol, ul {
 
     .f-article-content h3 {
         font-size: 2.0rem !important;
+        margin-top: 1.5625rem !important;
+        margin-bottom: 1.5625rem !important;
         color: var(--foreground-color);
     }
     

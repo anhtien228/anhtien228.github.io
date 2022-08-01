@@ -34,6 +34,9 @@
     <script id="MathJax-script" async
         src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
     </script>
+    <link rel="stylesheet" href="../../static/highlight/styles/tomorrow-night-blue.min.css">
+    <script src="../../static/highlight/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
 </head>
 
 <body class="overflow-x-hidden bg-angel">
@@ -75,7 +78,7 @@
                             of execution speed, memory efficiency, parallel computing or ease of utilize.
                         </p>
                         <p>
-                            Among of the existing ones, Pandas is no doubt the most famous Python library for working with structured data, specfically DataFrame.
+                            Among of the existing ones, <b>Pandas</b> is no doubt the most famous Python library for working with structured data, specfically DataFrame.
                             Due to its ease of use and being built on a facile programming language like Python, Pandas has been entrusted and been used from simple analyses to
                             to a more complex data manipulation or automative data pipelines.
                         </p>
@@ -87,10 +90,260 @@
                         <p style="margin-bottom: 0.5rem !important">To find out if Polars truly outshine Pandas, we will explore it throughout these sections:</p>
                         <ol style="list-style:decimal; padding-left: 2rem !important">
                             <li class="mb-1">What is Polars?</li>
-                            <li class="mb-1">Polars vs. Pandas</li>
-                            <li class="mb-1">Usages of Polars</li>
+                            <li class="mb-1">Polars expressions</li>
                             <li>Performance comparision</li>
                         </ol>
+                        <h2 id="what-is-polars" class="font-bold">What is Polars?</h2>
+                        <h3 id="look-back-pandas" class="font-bold">A look back on Pandas</h3>
+                        <p>
+                            It is not always the cases where Pandas achieve the best performance, especially in a large dataset (in gigabytes I
+                            would say). Data scientists who interact with DataFrame regularly may have experience the slowness of Pandas at
+                            least once in their work time.
+                        </p>
+                        <p>
+                            The reason for this is because Pandas only supports <b>eager execution</b>, in which the code is evaluated as soon as we
+                            run the code. Another thing we should note is that the core library of Pandas is single-threaded only and it does
+                            not cope with the parallelism concept. These disadvantages lead to some situations where reading, retrieving or
+                            manipulating DataFrame are slow using Pandas; and it would need supports from frameworks like Dask or Modin to
+                            leverage the parallelization.
+                        </p>
+                        <h3 id="origin" class="font-bold mt-4">Origin</h3>
+                        <p>
+                            Polars was initially created since 2020 by <a class="text-highlight link link-underline" href="https://www.ritchievink.com"
+                            rel="noopener noreferrer" target="_blank">Ritchie Vink</a> during the time of the COVID-19 pandemic. The motivation
+                            for starting this project was due to the fact he was dissastisfied with how DataFrame operates, which lead to the
+                            creation of Polars to solve his own use case.
+                        </p>
+                        <h3 id="characteristics" class="font-bold mt-4">Characteristics</h3>
+                        <p>
+                            Polars is a library that ultilize all availble cores on computer, parellelization in DataFrame operations. It was
+                            written in Rust – a language that aim to optimize the performane, safety and concurrency. In fact, Rust is a
+                            low-level programming language with direct access to hardware and memory, which makes it a great solution for the
+                            memory access and CPU multithreading leverage.
+                        </p>
+                        <p>
+                            Besides of Rust, Polars is also built on top of Apache Arrow – a framework provides a standardized column-oriented
+                            memory structure and in-memory computing. It help addressing the poor performance in hierarchical data that we
+                            observed in Pandas.
+                        </p>
+                        <p>
+                            With all of these benefits, Polars has its performance be on par with other existing libraries/frameworks. It could
+                            reduce redundant copies (no overhead), traverse memory cache efficiently, process the data with parallelization.
+                        </p>
+                        <h3 id="lazy-api" class="font-bold">A lazy API</h3>
+                        <p>
+                            Polars is both <b>lazy</b> and <b>semi-lazy</b> API, in which it provides a query optimization process on the entire query (note
+                            that it it also support eager evaluation as well). When a query is input, Polars keep track it using a logical plan
+                            – where an optimizer is executed to accelerate the initial query and reduce memory usage – and distribute the work
+                            to different executors that are using the algorithm of the eager API. After all of the operation has been parallelly
+                            completed, a result will be returned, in a faster way ever comparing to the eager API like Pandas.
+                        </p>
+                        <h2 id="polars-expression" class="font-bold">Polars expressions</h2>
+                        <p>
+                            Now it is time to come up with some Polars’ interpretations. In this section, I will provide to you some simple
+                            expressions and functions so you could have a general idea how it works.
+                        </p>
+                        <p>
+                            For the sake of these Polars example, I used a dataset called <a class="text-highlight link link-underline" href="https://www.kaggle.com/datasets/shilongzhuang/all-stands-in-jojo-bizarre-adventure-with-stats"
+                            rel="noopener noreferrer" target="_blank">"All Stands in JoJo Bizarre Adventure with Stats"</a>,
+                            contributed by SHI LONG ZHUANG from Kaggle. The dataset involve fiction figure called 'Stand', which
+                            is a unique embodiment of a person's life energy that can wield supernatural abilities. Stands are represented as a
+                            spiritual being hovering around its master and helping them in fighting.
+                        </p>
+                        <p>
+                            Anyway that was too far from our objective ... The dataset technically contains the stats every Stands that has
+                            apppeared in the anime, e.g: speed, power, stamina and vice versa.
+                        </p>
+                        <h4 id="read-csv-eager" class="font-bold">Read CSV (eager)</h4>
+                        <pre>
+                            <code class="python">jojo = pl.read_csv('jojo.csv')
+print(jojo.head(5))</code>
+                        </pre>
+                        <p style="margin-bottom: 0 !important">Head of table:</p>
+                        <pre>
+                            <code class="plain-text" style="font-size: 0.95rem">
+┌────────────────┬─────┬─────┬─────┬─────┬─────┬─────┬────────────────────────────┐
+│ Stand          ┆ PWR ┆ SPD ┆ RNG ┆ STA ┆ PRC ┆ DEV ┆ Story                      │
+│ ---            ┆ --- ┆ --- ┆ --- ┆ --- ┆ --- ┆ --- ┆ ---                        │
+│ str            ┆ str ┆ str ┆ str ┆ str ┆ str ┆ str ┆ str                        │
+╞════════════════╪═════╪═════╪═════╪═════╪═════╪═════╪════════════════════════════╡
+│ Anubis         ┆ B   ┆ B   ┆ E   ┆ A   ┆ E   ┆ C   ┆ Part 3: Stardust Crusaders │
+├╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┤
+│ Atum           ┆ D   ┆ C   ┆ D   ┆ B   ┆ D   ┆ D   ┆ Part 3: Stardust Crusaders │
+├╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┤
+│ Bastet         ┆ E   ┆ E   ┆ B   ┆ A   ┆ E   ┆ E   ┆ Part 3: Stardust Crusaders │
+├╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┤
+│ Cream          ┆ B   ┆ B   ┆ D   ┆ C   ┆ C   ┆ D   ┆ Part 3: Stardust Crusaders │
+├╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┤
+│ Death Thirteen ┆ C   ┆ C   ┆ E   ┆ B   ┆ D   ┆ B   ┆ Part 3: Stardust Crusaders │
+└────────────────┴─────┴─────┴─────┴─────┴─────┴─────┴────────────────────────────┘
+                            </code>
+                        </pre>
+                        <h4 id="read-csv-lazy" class="font-bold">Read CSV (lazy)</h4>
+                        <p>In the introduction section, we have learned that Polars has the capability to operate at <b>lazy</b> mode.
+                        To use the lazy execution mode, you can simply add the method <code class="python">lazy()</code> right after the
+                        <code class="python">read_csv()</code>:</p>
+                        <pre>
+                            <code class="python">jojo = pl.read_csv('jojo.csv').lazy()
+print(jojo.collect().head(5))</code>
+                        </pre>
+                        <p>By using the <code class="python">lazy()</code> method, you was simply telling Polars to hold on the execution
+                        and optimize all queries until the <code class="python">collect()</code> method is called.
+                        The method <code class="python">collect()</code> starts the execution and return a DataFrame as a result.</p>
+                        <p>In lazy mode, we works on an <code class="python">LazyFrame</code> object instead. The above example uses an explicit lazy evaluation.
+                        For the implicit version, you can replace the combination of <code class="python">read_csv().lazy()</code> with <code class="python">scan_csv()</code>.</p>
+                        <h4 id="exp-pipeline" class="font-bold">Expression pipeline</h4>
+                        <p>In Polars, the expressions (or queries) can be chained together to generate a new expression. The basic usage is to use <code class="python">.select</code> method
+                        on your DataFrame (or LazyFrame) and pipe multiple expressions inside it.</p>
+                        <pre>
+                            <code class="python">exp = jojo.select([
+    pl.col("Stand").count(),
+    pl.col("Story").unique().count()
+])
+                            
+print(exp)</code>
+                        </pre>
+                        <p>The snippet above basically says: count number of records in column <b>Stand</b> and number of unique records in
+                            column <b>Story</b>. A table of the result is printed out as follows:</p>
+                        <pre>
+                            <code class="plain-text">Result:
+┌───────┬───────┐
+│ Stand ┆ Story │
+│ ---   ┆ ---   │
+│ u32   ┆ u32   │
+╞═══════╪═══════╡
+│ 156   ┆ 8     │
+└───────┴───────┘</code>
+                        </pre>
+                        <h4 id="filter-conditionals" class="font-bold">Filter and conditionals</h4>
+                        <p>In Pandas, we can perform the filtering by using indexing solely on the columns. For Polars, we can also perform the complex
+                            filtering operations as well. In the next snippet, we will list out all <b>Stand</b> with their names start with letter <b>A</b> and appear in story <b>Part 3</b>.
+                        <pre>
+                            <code class="python">exp = jojo.select([
+    pl.col('Stand').filter(
+        pl.col("Stand").str.starts_with("A")
+        & pl.col("Story").str.contains("Part 3"))
+]) 
+
+print(exp)</code>
+                        </pre>
+                        <pre>
+                            <code class="plain-text">Result:
+┌────────┐
+│ Stand  │
+│ ---    │
+│ str    │
+╞════════╡
+│ Anubis │
+├╌╌╌╌╌╌╌╌┤
+│ Atum   │
+└────────┘</code>
+                        </pre>
+                        <h4 id="binary-functions" class="font-bold">Binary functions</h4>
+                        <p>Polars also has the ability to filter the data in an if-else fashion. In Pandas, we can select or manipulate the data
+                            with
+                            conditional statements by using <code class="python">.apply()</code> or <code class="python">.loc</code> method. To
+                            me personally,
+                            Polars has a much better readability when using binary functions. The expression is written in <code
+                                class="python">when -> then -> otherwise</code> construct:
+                        </p>
+                        <pre>
+                            <code class="python">exp = jojo.select([
+    pl.col('*'),
+    pl.when(pl.col("PWR").is_in(["A", "B"])).then("Strong").otherwise("Weak")
+])
+
+print(exp.head(5))</code>
+                        </pre>
+                        <p>The snippet above selects all columns in the DataFrame. It then uses the predicate expression <i>check if the <b>POWER</b>
+                        is A or B</i>. If the predicate evalutes to <b>true</b>, the <code class="python">then</code> function will classified the character's power as <b>Strong</b>, and the
+                        <code class="python">otherwise</code> function will classified the character's power as <b>Weak</b>.
+                        </p>
+                        <pre>
+                            <code class="plain-text" style="font-size: 0.85rem">Result:
+┌────────────────┬─────┬─────┬─────┬─────┬─────┬─────┬────────────────────────────┬─────────┐
+│ Stand          ┆ PWR ┆ SPD ┆ RNG ┆ ... ┆ PRC ┆ DEV ┆ Story                      ┆ literal │
+│ ---            ┆ --- ┆ --- ┆ --- ┆     ┆ --- ┆ --- ┆ ---                        ┆ ---     │
+│ str            ┆ str ┆ str ┆ str ┆     ┆ str ┆ str ┆ str                        ┆ str     │
+╞════════════════╪═════╪═════╪═════╪═════╪═════╪═════╪════════════════════════════╪═════════╡
+│ Anubis         ┆ B   ┆ B   ┆ E   ┆ ... ┆ E   ┆ C   ┆ Part 3: Stardust Crusaders ┆ Strong  │
+├╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌┤
+│ Atum           ┆ D   ┆ C   ┆ D   ┆ ... ┆ D   ┆ D   ┆ Part 3: Stardust Crusaders ┆ Weak    │
+├╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌┤
+│ Bastet         ┆ E   ┆ E   ┆ B   ┆ ... ┆ E   ┆ E   ┆ Part 3: Stardust Crusaders ┆ Weak    │
+├╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌┤
+│ Cream          ┆ B   ┆ B   ┆ D   ┆ ... ┆ C   ┆ D   ┆ Part 3: Stardust Crusaders ┆ Strong  │
+├╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌┤
+│ Death Thirteen ┆ C   ┆ C   ┆ E   ┆ ... ┆ D   ┆ B   ┆ Part 3: Stardust Crusaders ┆ Weak    │
+└────────────────┴─────┴─────┴─────┴─────┴─────┴─────┴────────────────────────────┴─────────┘</code>
+                        </pre>
+                        <h4 id="group-by" class="font-bold">GroupBy</h4>
+                        <p>The groupby function sometimes faces slow execution when working on large dataset in Pandas. Luckily, Polars has improved
+                            the processing speed by altering the multi-threaded operation. In Polars, you can combine different aggregations by adding
+                            multiple expressions in a list (just like the <code class="python">.select()</code> method). In the following example, we will try
+                            a combination of aggregations:
+                        </p>
+                        <p style="margin-bottom: 0 !important">Per GROUP <code class="keyword">"Story"</code>:</p>
+                        <ul style="list-style: disc; padding-left: 2rem !important">
+                            <li class="mb-2">count the number of Stands:
+                                <ul>
+                                    <li><code class="python">pl.count()</code></li>
+                                </ul>
+                            </li>
+                            <li class="mb-2">aggregate the Stand values groups to a list:
+                                <ul>
+                                    <li><code class="python">pl.col("Stand").list()</code></li>
+                                </ul>
+                            </li>
+                            <li>filter those stands with <b>POWER</b> and <b>STAND</b> as A and name the column StrongestStands:
+                                <ul>
+                                    <li><code class="python">pl.col("Stand").filter(<br>
+                                            (pl.col("PWR") == "A") &<br>
+                                            (pl.col("SPD") == "A")<br>
+                                    ).alias("StrongestStands")</code></li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <pre>
+                            <code class="python">df = (
+    jojo
+    .groupby("Story")
+    .agg(
+        [
+            pl.count(),
+            pl.col("Stand").list(),
+            pl.col("Stand").filter((pl.col("PWR") == "A") 
+            & (pl.col("SPD") == "A")).alias("StrongestStands")
+        ]
+    )
+    .sort("count", reverse=True)
+)
+
+print(df.head(5))</code>
+                        </pre>
+                        <pre>
+                            <code class="plain-text" style="font-size: 0.8rem">Result:
+┌──────────────────────────────┬───────┬─────────────────────────────┬─────────────────────────────┐
+│ Story                        ┆ count ┆ Stand                       ┆ StrongestStands             │
+│ ---                          ┆ ---   ┆ ---                         ┆ ---                         │
+│ str                          ┆ u32   ┆ list[str]                   ┆ list[str]                   │
+╞══════════════════════════════╪═══════╪═════════════════════════════╪═════════════════════════════╡
+│ Part 3: Stardust Crusaders   ┆ 33    ┆ ["Anubis", "Atum", ...      ┆ ["Star Platinum", "The      │
+│                              ┆       ┆ "Yellow T...                ┆ World"]                     │
+├╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┤
+│ Part 5: Vento Aureo          ┆ 29    ┆ ["Black Sabbath", "Baby     ┆ ["Sticky Fingers", "King    │
+│                              ┆       ┆ Face", ....                 ┆ Crimson...                  │
+├╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┤
+│ Part 4: Diamond is           ┆ 28    ┆ ["Achtung Baby", "Aqua      ┆ ["Crazy Diamond", "Red Hot  │
+│ Unbreakable                  ┆       ┆ Necklace"...                ┆ Chili...                    │
+├╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┤
+│ Part 6: Stone Ocean          ┆ 26    ┆ ["Whitesnake", "C-Moon",    ┆ ["Star Platinum", "Star     │
+│                              ┆       ┆ ... "Yo...                  ┆ Platinum...                 │
+├╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┤
+│ Part 7: Steel Ball Run       ┆ 24    ┆ ["20th Century Boy", "Ball  ┆ ["Ball Breaker", "Dirty     │
+│                              ┆       ┆ Break...                    ┆ Deeds Do...                 │
+└──────────────────────────────┴───────┴─────────────────────────────┴─────────────────────────────┘</code>
+                        </pre>
                     </div>
                 </article>
             </div>
@@ -102,7 +355,6 @@
         integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous">
     </script>
     <script src="../js/style.js"></script>
-        
 </body>
 
 </html>

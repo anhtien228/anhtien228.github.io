@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="en" class="bg-obsidian js">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, width=device-width">
+    <link rel="stylesheet" href="../../static/css/style.css">
+    <link rel="stylesheet" href="../../static/css/blog.css">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../assets/pfp.png">
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/all.css">
+    <title>Polars: An alternative DataFrame library to Pandas</title>
+    <meta name="robots" content="index,follow">
+    <meta name="description"
+        content="Doan Anh Tien | A blog about Polars - an alternative DataFrame library. We also have a look on some common usages and the performance between Polars and Pandas.">
+    <meta property="author" content="Doan Anh Tien">
+    <meta property="og:site_name" content="Doan Anh Tien's Blog">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Polars: An alternative DataFrame library to Pandas">
+    <meta property="og:description"
+        content="Doan Anh Tien | A blog about Polars - an alternative DataFrame library. We also have a look on some common usages and the performance between Polars and Pandas.">
+    <!-- JQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script>
+        MathJax = {
+          tex: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']]
+          },
+          color: '#dcf6ff'
+        };
+    </script>
+    <script id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+    </script>
+    <link rel="stylesheet" href="../../static/highlight/styles/tomorrow-night-blue.min.css">
+    <script src="../../static/highlight/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+
+<body class="overflow-x-hidden bg-angel">
+    <div class="f-main-container">
+        <main class="f-standard-container has-newsletter js-standard-container font-regular text-space" role="main">
+            <div class="f-standard-wrapper in-post">
+                <article class="f-article js-article">
+                    <header class="f-article-header fadeinDown">
+                        <h1 class="f-article-header__title js-article-title font-black">
+                            Polars: An alternative DataFrame library to Pandas
+                        </h1>
+                        <p class=" f-article-header__excerpt in-post">
+                            This blog provides to you an overview of the emerging DataFrame library called Polars.
+                            You will gain an understanding of this library from its foundation to some common expressions,
+                            and wrap up with a performance comparison between it and Pandas.
+                        </p>
+                        <p class="f-article-header__time font-med">
+                            <span>February 7, 2022</span>
+                            <span>&nbsp; • &nbsp;</span>
+                            <span>20 min read</span>
+                        </p>
+                        <div class="f-article-header__author">
+                            <a href="../../" class="f-avatar in-article-header " aria-label="Tien's profile'"
+                                aria-haspopup="false">
+                                <img alt="" class="lazy loaded rounded-full" width="45" height="45" data-ll-status="loaded"
+                                    src="../../assets/pfp.png">
+                            </a>
+                            <span class="ms-4">
+                                By
+                                <a href="../../"" class="link link-underline">Doan Anh Tien</a>
+                            </span>
+                        </div>
+                    </header>
+                    <div class="f-article-content js-article-content fadeinRight">
+                        <h2 id="introduction" class="font-bold">Introduction</h2>
+                        <figure id="fig-2" class="kg-card kg-image-card kg-card-hascaption">
+                            <img src="https://drive.google.com/uc?id=1DE36ISOxhpQMLLtjnDqG0Y6LWsKnDSnM"
+                            class="kg-image lightense-target" alt="Polars vs Pandas" loading="lazy">
+                        </figure>
+                        <p>
+                            When it comes to choosing a library or framework to work with DataFrame, there exists a wide selection for us to choose
+                            such as Pandas, Modin, or Dask. Each of these tools have their own strengths in terms
+                            of execution speed, memory efficiency, parallel computing or ease of utilize.
+                        </p>
+                        <p>
+                            Among of the existing ones, <b>Pandas</b> is no doubt the most famous Python library for working with structured data, specfically DataFrame.
+                            Due to its ease of use and being built on a facile programming language like Python, Pandas has been entrusted and been used from simple analyses to
+                            to a more complex data manipulation or automative data pipelines.
+                        </p>
+                        <p>
+                            With a large amount of data available in these days, the demand for such high speed execution on DataFrame has lead to the emergence
+                            of some alternatives to Pandas. For me personally, the most interesting one is Polars, a library that offer a better performance while maintaining
+                            the simplicty of uses to anyone who has experience with Pandas. 
+                        </p>
+                        <p style="margin-bottom: 0.5rem !important">To find out if Polars truly outshine Pandas, we will explore it throughout these sections:</p>
+                        <ol style="list-style:decimal; padding-left: 2rem !important">
+                            <li class="mb-1">What is Polars?</li>
+                            <li class="mb-1">Polars expressions</li>
+                            <li>Performance comparison</li>
+                        </ol>
+                        <br><br>
+                        <h2 id="what-is-polars" class="font-bold">What is Polars?</h2>
+                        <h3 id="look-back-pandas" class="font-bold">A look back on Pandas</h3>
+                        <p>
+                            It is not always the cases where Pandas achieve the best performance, especially in a large dataset (in gigabytes I
+                            would say). Data scientists who interact with DataFrame regularly may have experience the slowness of Pandas at
+                            least once in their work time.
+                        </p>
+                        <p>
+                            The reason for this is because Pandas only supports <b>eager execution</b>, in which the code is evaluated as soon as we
+                            run the code. Another thing we should note is that the core library of Pandas is single-threaded only and it does
+                            not cope with the parallelism concept. These disadvantages lead to some situations where reading, retrieving or
+                            manipulating DataFrame are slow using Pandas; and it would need supports from frameworks like Dask or Modin to
+                            leverage the parallelization.
+                        </p>
+                        <h3 id="origin" class="font-bold mt-4">Origin</h3>
+                        <p>
+                            Polars was initially created since 2020 by <a class="text-highlight link link-underline" href="https://www.ritchievink.com"
+                            rel="noopener noreferrer" target="_blank">Ritchie Vink</a> during the time of the COVID-19 pandemic. The motivation
+                            for starting this project was due to the fact he was dissastisfied with how DataFrame operates, which lead to the
+                            creation of Polars to solve his own use case.
+                        </p>
+                        <h3 id="characteristics" class="font-bold mt-4">Characteristics</h3>
+                        <p>
+                            Polars is a library that ultilize all availble cores on computer, parellelization in DataFrame operations. It was
+                            written in Rust – a language that aim to optimize the performane, safety and concurrency. In fact, Rust is a
+                            low-level programming language with direct access to hardware and memory, which makes it a great solution for the
+                            memory access and CPU multithreading leverage.
+                        </p>
+                        <p>
+                            Besides of Rust, Polars is also built on top of Apache Arrow – a framework provides a standardized column-oriented
+                            memory structure and in-memory computing. It help addressing the poor performance in hierarchical data that we
+                            observed in Pandas.
+                        </p>
+                        <p>
+                            With all of these benefits, Polars has its performance be on par with other existing libraries/frameworks. It could
+                            reduce redundant copies (no overhead), traverse memory cache efficiently, process the data with parallelization.
+                        </p>
+                        <h3 id="lazy-api" class="font-bold">A lazy API</h3>
+                        <p>
+                            Polars is both <b>lazy</b> and <b>semi-lazy</b> API, in which it provides a query optimization process on the entire query (note
+                            that it it also support eager evaluation as well). When a query is input, Polars keep track it using a logical plan
+                            – where an optimizer is executed to accelerate the initial query and reduce memory usage – and distribute the work
+                            to different executors that are using the algorithm of the eager API. After all of the operation has been parallelly
+                            completed, a result will be returned, in a faster way ever comparing to the eager API like Pandas.
+                        </p>
+                        <figure id="fig-1" class="kg-card kg-image-card kg-card-hascaption">
+                            <img src="https://drive.google.com/uc?id=1_CydboHY6XhSK65XDKJnqThEQOa7OQpl"
+                            class="kg-image lightense-target" alt="Lazy evaluation vs Eager evaluation" loading="lazy">
+                            <figcaption>Figure 1. Lazy evaluation vs Eager evaluation
+                            </figcaption>
+                        </figure>
+                        <h2 id="polars-expression" class="font-bold">Polars expressions</h2>
+                        <p>
+                            Now it is time to come up with some Polars’ interpretations. In this section, this section will provide to you some simple
+                            expressions and functions so you could have a general idea how it works.
+                        </p>
+                        <p>
+                            For the sake of these Polars example, we used a dataset called <a class="text-highlight link link-underline" href="https://www.kaggle.com/datasets/shilongzhuang/all-stands-in-jojo-bizarre-adventure-with-stats"
+                            rel="noopener noreferrer" target="_blank">"All Stands in JoJo Bizarre Adventure with Stats"</a>,
+                            contributed by Shi Long Zhuang from Kaggle. The dataset involves fiction character called 'Stand', which
+                            is a unique embodiment of a person's life energy that can wield supernatural abilities. Stands are represented as a
+                            spiritual being hovering around its master and helping them in fighting.
+                        </p>
+                        <p>
+                            Anyway that was too far from our objective. The dataset technically contains the stats of every Stands that has
+                            apppeared in the anime, e.g: speed, power, stamina and vice versa.
+                        </p>
+                        <h4 id="read-csv-eager" class="font-bold">Read CSV (eager)</h4>
+                        <p style="margin-bottom: 0 !important">Reading an CSV file in Polars is quite similar to Pandas. We can simply call <code class="python">.read_csv()</code> method in this case.
+                        This will eagerly execute the query and return a DataFrame that has been read from the input path.</p>
+                        <pre>
+                            <code class="python">jojo = pl.read_csv('jojo.csv')
+print(jojo.head(5))</code>
+                        </pre>
+                        <pre>
+                            <code class="plain-text" style="font-size: 0.95rem">Result:
+┌────────────────┬─────┬─────┬─────┬─────┬─────┬─────┬────────────────────────────┐
+│ Stand          ┆ PWR ┆ SPD ┆ RNG ┆ STA ┆ PRC ┆ DEV ┆ Story                      │
+│ ---            ┆ --- ┆ --- ┆ --- ┆ --- ┆ --- ┆ --- ┆ ---                        │
+│ str            ┆ str ┆ str ┆ str ┆ str ┆ str ┆ str ┆ str                        │
+╞════════════════╪═════╪═════╪═════╪═════╪═════╪═════╪════════════════════════════╡
+│ Anubis         ┆ B   ┆ B   ┆ E   ┆ A   ┆ E   ┆ C   ┆ Part 3: Stardust Crusaders │
+├╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┤
+│ Atum           ┆ D   ┆ C   ┆ D   ┆ B   ┆ D   ┆ D   ┆ Part 3: Stardust Crusaders │
+├╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┤
+│ Bastet         ┆ E   ┆ E   ┆ B   ┆ A   ┆ E   ┆ E   ┆ Part 3: Stardust Crusaders │
+├╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┤
+│ Cream          ┆ B   ┆ B   ┆ D   ┆ C   ┆ C   ┆ D   ┆ Part 3: Stardust Crusaders │
+├╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┤
+│ Death Thirteen ┆ C   ┆ C   ┆ E   ┆ B   ┆ D   ┆ B   ┆ Part 3: Stardust Crusaders │
+└────────────────┴─────┴─────┴─────┴─────┴─────┴─────┴────────────────────────────┘
+                            </code>
+                        </pre>
+                        <h4 id="read-csv-lazy" class="font-bold">Read CSV (lazy)</h4>
+                        <p style="margin-bottom: 0 !important">In the introduction section, we have learned that Polars has the capability to operate at <b>lazy</b> mode.
+                        To use the lazy execution mode, you can simply add the method <code class="python">lazy()</code> right after the
+                        <code class="python">read_csv()</code>:</p>
+                        <pre>
+                            <code class="python">jojo = pl.read_csv('jojo.csv').lazy()
+print(jojo.collect().head(5))</code>
+                        </pre>
+                        <p>By using the <code class="python">lazy()</code> method, you was simply telling Polars to hold on the execution
+                        and optimize all queries until the <code class="python">collect()</code> method is called.
+                        The method <code class="python">collect()</code> starts the execution and return a DataFrame as a result.</p>
+                        <p>In lazy mode, we works on an <code class="python">LazyFrame</code> object instead. The above example uses an explicit lazy evaluation.
+                        For the implicit version, you can replace the combination of <code class="python">read_csv().lazy()</code> with <code class="python">scan_csv()</code>.</p>
+                        <h4 id="exp-pipeline" class="font-bold">Expression pipeline</h4>
+                        <p style="margin-bottom: 0 !important">In Polars, the expressions (or queries) can be chained together to generate a new expression. The basic usage is to use <code class="python">.select</code> method
+                        on your DataFrame (or LazyFrame) and pipe multiple expressions inside it.</p>
+                        <pre>
+                            <code class="python">exp = jojo.select([
+    pl.col("Stand").count(),
+    pl.col("Story").unique().count()
+])
+                            
+print(exp)</code>
+                        </pre>
+                        <p style="margin-bottom: 0 !important">The snippet above basically says: count number of records in column <b>Stand</b> and number of unique records in
+                            column <b>Story</b>. A table of the result is printed out as follows:</p>
+                        <pre>
+                            <code class="plain-text">Result:
+┌───────┬───────┐
+│ Stand ┆ Story │
+│ ---   ┆ ---   │
+│ u32   ┆ u32   │
+╞═══════╪═══════╡
+│ 156   ┆ 8     │
+└───────┴───────┘</code>
+                        </pre>
+                        <h4 id="filter-conditionals" class="font-bold">Filter and conditionals</h4>
+                        <p style="margin-bottom: 0 !important">In Pandas, we can perform the filtering by using indexing solely on the columns. For Polars, we can also perform the complex
+                            filtering operations as well. In the next snippet, we will list out all <b>Stand</b> with their names start with letter <b>A</b> and appear in story <b>Part 3</b>.
+                        <pre>
+                            <code class="python">exp = jojo.select([
+    pl.col('Stand').filter(
+        pl.col("Stand").str.starts_with("A")
+        & pl.col("Story").str.contains("Part 3"))
+]) 
+
+print(exp)</code>
+                        </pre>
+                        <pre>
+                            <code class="plain-text">Result:
+┌────────┐
+│ Stand  │
+│ ---    │
+│ str    │
+╞════════╡
+│ Anubis │
+├╌╌╌╌╌╌╌╌┤
+│ Atum   │
+└────────┘</code>
+                        </pre>
+                        <h4 id="binary-functions" class="font-bold">Binary functions</h4>
+                        <p style="margin-bottom: 0 !important">Polars also has the ability to filter the data in an if-else fashion. In Pandas, we can select or manipulate the data
+                            with
+                            conditional statements by using <code class="python">.apply()</code> or <code class="python">.loc</code> method. To
+                            me personally,
+                            Polars has a much better readability when using binary functions. The expression is written in <code
+                                class="python">when -> then -> otherwise</code> construct:
+                        </p>
+                        <pre>
+                            <code class="python">exp = jojo.select([
+    pl.col('*'),
+    pl.when(pl.col("PWR").is_in(["A", "B"])).then("Strong").otherwise("Weak")
+])
+
+print(exp.head(5))</code>
+                        </pre>
+                        <p style="margin-bottom: 0 !important">The snippet above selects all columns in the DataFrame. It then uses the predicate expression <i>check if the <b>POWER</b>
+                        is A or B</i>. If the predicate evalutes to <b>true</b>, the <code class="python">then</code> function will classified the character's power as <b>Strong</b>, and the
+                        <code class="python">otherwise</code> function will classified the character's power as <b>Weak</b>.
+                        </p>
+                        <pre>
+                            <code class="plain-text" style="font-size: 0.85rem">Result:
+┌────────────────┬─────┬─────┬─────┬─────┬─────┬─────┬────────────────────────────┬─────────┐
+│ Stand          ┆ PWR ┆ SPD ┆ RNG ┆ ... ┆ PRC ┆ DEV ┆ Story                      ┆ literal │
+│ ---            ┆ --- ┆ --- ┆ --- ┆     ┆ --- ┆ --- ┆ ---                        ┆ ---     │
+│ str            ┆ str ┆ str ┆ str ┆     ┆ str ┆ str ┆ str                        ┆ str     │
+╞════════════════╪═════╪═════╪═════╪═════╪═════╪═════╪════════════════════════════╪═════════╡
+│ Anubis         ┆ B   ┆ B   ┆ E   ┆ ... ┆ E   ┆ C   ┆ Part 3: Stardust Crusaders ┆ Strong  │
+├╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌┤
+│ Atum           ┆ D   ┆ C   ┆ D   ┆ ... ┆ D   ┆ D   ┆ Part 3: Stardust Crusaders ┆ Weak    │
+├╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌┤
+│ Bastet         ┆ E   ┆ E   ┆ B   ┆ ... ┆ E   ┆ E   ┆ Part 3: Stardust Crusaders ┆ Weak    │
+├╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌┤
+│ Cream          ┆ B   ┆ B   ┆ D   ┆ ... ┆ C   ┆ D   ┆ Part 3: Stardust Crusaders ┆ Strong  │
+├╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌┤
+│ Death Thirteen ┆ C   ┆ C   ┆ E   ┆ ... ┆ D   ┆ B   ┆ Part 3: Stardust Crusaders ┆ Weak    │
+└────────────────┴─────┴─────┴─────┴─────┴─────┴─────┴────────────────────────────┴─────────┘</code>
+                        </pre>
+                        <h4 id="group-by" class="font-bold">GroupBy</h4>
+                        <p>The groupby function sometimes faces slow execution when working on large dataset in Pandas. Luckily, Polars has improved
+                            the processing speed by altering the multi-threaded operation. In Polars, you can combine different aggregations by adding
+                            multiple expressions in a list (just like the <code class="python">.select()</code> method). In the following example, we will try
+                            a combination of aggregations:
+                        </p>
+                        <p style="margin-bottom: 0 !important">Per GROUP <code class="keyword">"Story"</code>:</p>
+                        <ul style="list-style: disc; padding-left: 2rem !important">
+                            <li class="mb-2">count the number of Stands:
+                                <ul>
+                                    <li><code class="python">pl.count()</code></li>
+                                </ul>
+                            </li>
+                            <li class="mb-2">aggregate the Stand values groups to a list:
+                                <ul>
+                                    <li><code class="python">pl.col("Stand").list()</code></li>
+                                </ul>
+                            </li>
+                            <li>filter those stands with <b>POWER</b> and <b>STAND</b> as A and name the column StrongestStands:
+                                <ul>
+                                    <li><code class="python">pl.col("Stand").filter(<br>
+                                            (pl.col("PWR") == "A") &<br>
+                                            (pl.col("SPD") == "A")<br>
+                                    ).alias("StrongestStands")</code></li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <pre>
+                            <code class="python">df = (
+    jojo
+    .groupby("Story")
+    .agg(
+        [
+            pl.count(),
+            pl.col("Stand").list(),
+            pl.col("Stand").filter((pl.col("PWR") == "A") 
+            & (pl.col("SPD") == "A")).alias("StrongestStands")
+        ]
+    )
+    .sort("count", reverse=True)
+)
+
+print(df.head(5))</code>
+                        </pre>
+                        <pre>
+                            <code class="plain-text" style="font-size: 0.8rem">Result:
+┌──────────────────────────────┬───────┬─────────────────────────────┬─────────────────────────────┐
+│ Story                        ┆ count ┆ Stand                       ┆ StrongestStands             │
+│ ---                          ┆ ---   ┆ ---                         ┆ ---                         │
+│ str                          ┆ u32   ┆ list[str]                   ┆ list[str]                   │
+╞══════════════════════════════╪═══════╪═════════════════════════════╪═════════════════════════════╡
+│ Part 3: Stardust Crusaders   ┆ 33    ┆ ["Anubis", "Atum", ...      ┆ ["Star Platinum", "The      │
+│                              ┆       ┆ "Yellow T...                ┆ World"]                     │
+├╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┤
+│ Part 5: Vento Aureo          ┆ 29    ┆ ["Black Sabbath", "Baby     ┆ ["Sticky Fingers", "King    │
+│                              ┆       ┆ Face", ....                 ┆ Crimson...                  │
+├╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┤
+│ Part 4: Diamond is           ┆ 28    ┆ ["Achtung Baby", "Aqua      ┆ ["Crazy Diamond", "Red Hot  │
+│ Unbreakable                  ┆       ┆ Necklace"...                ┆ Chili...                    │
+├╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┤
+│ Part 6: Stone Ocean          ┆ 26    ┆ ["Whitesnake", "C-Moon",    ┆ ["Star Platinum", "Star     │
+│                              ┆       ┆ ... "Yo...                  ┆ Platinum...                 │
+├╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┤
+│ Part 7: Steel Ball Run       ┆ 24    ┆ ["20th Century Boy", "Ball  ┆ ["Ball Breaker", "Dirty     │
+│                              ┆       ┆ Break...                    ┆ Deeds Do...                 │
+└──────────────────────────────┴───────┴─────────────────────────────┴─────────────────────────────┘</code>
+                        </pre>
+                        <h2 id="performance-comparison" class="font-bold">Performance comparison</h2>
+                        <p style="margin-bottom: 0.5rem !important">
+                            In this final section, we will run a comparison to see whether Polars can outperform or not. Here is the
+                            version specification of the libraries:
+                        </p>
+                        <ul style="list-style: disc; padding-left: 2rem !important">
+                            <li class="mb-1">Pandas: 1.3.4</li>
+                            <li>Polars: 0.13.57</li>
+                        </ul>
+                        <p>The Python version used in this test is 3.8.5.<br>
+                            All tests are performed in <b>5 consecutive runs</b> and the average execution time is obtained.</p>
+                        <h3 id="dataset" class="font-bold">Dataset</h3>
+                        <p>
+                            The dataset used in the comparision is a enlarged version of Asteroid Dataset contributed by Mir Sakhawat Hossain.
+                            The data was collected and under the supervision of NASA's Jet Propulsion Laboratory of California Institute of
+                            Technology. It is publicity available and you can find more details about it via:
+                            <a class="text-highlight link link-underline" href="https://www.kaggle.com/datasets/sakhawat18/asteroid-dataset"
+                            rel="noopener noreferrer" target="_blank">Asteroid Dataset</a>.
+                        </p>
+                        <p style="margin-bottom: 0 !important">The dataset's original size was 456MB with 958.524 rows. It was duplicated by 50 times, in which now it has 48.884.724
+                            rows and the final size to be more than 3GB. Since there were 45 columns from the beginning, so I decided to cut down
+                            into 13 main features to keep simple and for easier data manipulation.
+                        </p>
+                        <pre>
+                            <code class="plain-text" style="font-size: 0.83rem">┌──────────┬─────────┬────────────────┬──────┬─────┬──────────┬────────┬────────────────┬───────┐
+│ id       ┆ spkid   ┆ full_name      ┆ pdes ┆ ... ┆ diameter ┆ albedo ┆ diameter_sigma ┆ class │
+│ ---      ┆ ---     ┆ ---            ┆ ---  ┆     ┆ ---      ┆ ---    ┆ ---            ┆ ---   │
+│ str      ┆ i64     ┆ str            ┆ str  ┆     ┆ f64      ┆ f64    ┆ f64            ┆ str   │
+╞══════════╪═════════╪════════════════╪══════╪═════╪══════════╪════════╪════════════════╪═══════╡
+│ a0000001 ┆ 2000001 ┆      1 Ceres   ┆ 1    ┆ ... ┆ 939.4    ┆ 0.09   ┆ 0.2            ┆ MBA   │
+├╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌┤
+│ a0000002 ┆ 2000002 ┆      2 Pallas  ┆ 2    ┆ ... ┆ 545.0    ┆ 0.101  ┆ 18.0           ┆ MBA   │
+├╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌┤
+│ a0000003 ┆ 2000003 ┆      3 Juno    ┆ 3    ┆ ... ┆ 246.596  ┆ 0.214  ┆ 10.594         ┆ MBA   │
+├╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌┤
+│ a0000004 ┆ 2000004 ┆      4 Vesta   ┆ 4    ┆ ... ┆ 525.4    ┆ 0.4228 ┆ 0.2            ┆ MBA   │
+├╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌┤
+│ a0000005 ┆ 2000005 ┆      5 Astraea ┆ 5    ┆ ... ┆ 106.699  ┆ 0.274  ┆ 3.14           ┆ MBA   │
+└──────────┴─────────┴────────────────┴──────┴─────┴──────────┴────────┴────────────────┴───────┘</code>
+                        </pre>
+                        <h3 id="use-cases" class="font-bold">Use cases</h3>
+                        <p style="margin-bottom: 0.5rem !important">The list below consists of different tests that were run:</p>
+                        <ol style="list-style:decimal; padding-left: 2rem !important">
+                            <li class="mb-2">
+                                Open the file and display the dimension of the DataFrame
+                            </li>
+                            <li class="mb-2">
+                                Sort the <b>name</b> column alphabetically (in an ascending order)
+                            </li>
+                            <li class="mb-2">
+                                Apply a function to the <b>diameter</b> column that divide by 2 to transform it into a radius column
+                            </li>
+                            <li class="mb-2">
+                                Filter all rows with the <b>diameter</b> equal or larger than that of 4 Vesta asteroid (an asteroid having a diameter of 525 km)
+                            </li>
+                            <li>
+                                Filter all rows with the <b>diameter</b> smaller than that of 4 Vesta asteroid, grouped by asteroid <b>class</b>, and calculate the mean <b>diameter</b> (in kilometers).
+                            </li>
+                        </ol>
+                        <p style="margin-bottom: 0 !important">Before heading to the tests, let's have a look on the timing code (main function)</p>
+                        <pre>
+                            <code class="python">def run_use_case(n):
+    if n == 1:
+        use_case_1()
+    elif n == 2:
+        use_case_2()
+    elif n == 3:
+        use_case_3()
+    elif n == 4:
+        use_case_4()
+    else:
+        use_case_5()
+    
+def main(n):
+
+    print(f"Use case {n} start")
+    # Get the start time
+    start_time = time.time()
+            
+    # Perform the test
+    run_use_case(n)
+
+    # Get the end time
+    end_time = time.time()
+
+    # Print out the elapsed time (seconds)
+    elapsed_time = round(end_time - start_time, 2)
+    print(f"Use case {n} completes in {elapsed_time} seconds.")
+
+    # Logging into file
+    run_log = "Use case {}".format(n)
+    time_log = "{} Seconds ".format(elapsed_time)
+
+    with open("polars_logs.txt", "a") as logfile:
+        logfile.write("%s: %s\n" % (run_log, time_log))</code>
+                        </pre>
+                        <p>There will be two different files with the same main code just like this for Polars and Pandas tests. It will receive
+                            some arguments like the use case or number of iteration.
+                        </p>
+                        <h3 id="use-cases-1" class="font-bold mt-4 pt-4">1. Open the file and display the dimension of the DataFrame</h3>
+                        <p>The most common use case to us since it is the first step we mostly would do when we start working on a CSV file.
+                            When opening a CSV file, we want to fast check the size of this dataset. This can be accomplished by reading the shape of the
+                            DataFrame, where the number of columns and number of rows are returned.
+                        </p>
+                        <p style="margin-bottom: 0 !important">The code for Pandas:</p>
+                        <pre>
+                            <code class="python">def get_dataframe():
+    input_df = pd.read_csv(name)
+    return input_df
+
+def use_case_1():
+    global df
+    print(df.shape)</code>
+                        </pre>
+                        <p style="margin-bottom: 0 !important">In the snippet above, I made the DataFrame to be globally accessed since we will use it for other use cases after this.
+                            When we execute the Pandas code, we get the following result:
+                        </p>
+                        <pre>
+                            <code class="plain-text">(48884724, 13)</code>
+                        </pre>
+                        <p style="margin-bottom: 0 !important">Now we run a test using Polars with the following code:</p>
+                        <pre>
+                            <code class="python">def get_dataframe():
+    input_df = pl.read_csv(name, dtype={'full_name': pl.Utf8, 'pdes': pl.Utf8, 'name': pl.Utf8}).lazy()
+    return input_df
+
+def use_case_1():
+    global lf
+    print(lf.collect().shape)</code>
+                        </pre>
+                        <p style="margin-bottom: 0 !important">
+                        You can notice that in the Polars' code, the method <code class="python">.lazy()</code> were used. And from now on, all
+                        use cases will have their operation run on a LazyFrame object. Here is the result after running the snippet:
+                        </p>
+                        <pre>
+                            <code class="python">(48884724, 13)</code>
+                        </pre>
+                        <p>The result is the same to that of Pandas, which is great. Here are the execution time results:</p>
+                        <table class="table mb-4">
+                            <thead>
+                              <tr>
+                                <th scope="col">Use case</th>
+                                <th scope="col">Pandas</th>
+                                <th scope="col">Polars</th>
+                                <th scope="col">Difference</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>Open the file and display the dimension of the DataFrame</td>
+                                <td>380.52 seconds</td>
+                                <td>33.22 seconds</td>
+                                <td>347.3 seconds</td>
+                              </tr>
+                            </tbody>
+                        </table>
+                        <p>In this use case, Polars performed <b>10 times</b> faster than Pandas. It can be seen that reading
+                        the file might be one of the operations that take longest time in many DataFrame library, yet Polars still makes the execution time to be
+                        reasonable.</p>
+                        <h3 id="use-cases-2" class="font-bold mt-4 pt-4">2. Sort the name column alphabetically (in an ascending order)</h3>
+                        <p>The second use case is also a simple one. We will sort the column <b>name</b> in ascending order. Since sort can be troublesome in
+                            a large dataset, we expect that Pandas may face slowliness in this use case.
+                        </p>
+                        <p style="margin-bottom: 0 !important">The code for Pandas:</p>
+                        <pre>
+                            <code class="python">def use_case_2():
+    global df
+    print((
+        df.sort_values('name')
+        .head(5)
+    ))</code>
+                        </pre>
+                        <p style="margin-bottom: 0 !important">For Polars, when using sort in default, it will let the null values on the top first. To achieve the same result as Pandas
+                            where the null values are all put in the tail, we can set another parameter <code class="python">nulls_last=True</code> inside the method.</p>
+                        <pre>
+                            <code class="python">def use_case_2():
+    global lf
+    print((
+        lf.sort('name', nulls_last=True)
+        .collect()
+        .head()
+    ))</code>
+                        </pre>
+                        <p style="margin-bottom: 0 !important">When we execute both snippets, they return the same result as follows:</p>
+                        <pre>
+                            <code class="plain-text" style="font-size: 0.72rem">┌──────────┬─────────┬────────────────────────────┬────────┬─────┬──────────┬────────┬────────────────┬───────┐
+│ id       ┆ spkid   ┆ full_name                  ┆ pdes   ┆ ... ┆ diameter ┆ albedo ┆ diameter_sigma ┆ class │
+│ ---      ┆ ---     ┆ ---                        ┆ ---    ┆     ┆ ---      ┆ ---    ┆ ---            ┆ ---   │
+│ str      ┆ i64     ┆ str                        ┆ str    ┆     ┆ f64      ┆ f64    ┆ f64            ┆ str   │
+╞══════════╪═════════╪════════════════════════════╪════════╪═════╪══════════╪════════╪════════════════╪═══════╡
+│ a0388282 ┆ 2388282 ┆ 388282 'Akepa (2006 RC118) ┆ 388282 ┆ ... ┆ null     ┆ null   ┆ null           ┆ MBA   │
+├╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌┤
+│ a0388282 ┆ 2388282 ┆ 388282 'Akepa (2006 RC118) ┆ 388282 ┆ ... ┆ null     ┆ null   ┆ null           ┆ MBA   │
+├╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌┤
+│ a0388282 ┆ 2388282 ┆ 388282 'Akepa (2006 RC118) ┆ 388282 ┆ ... ┆ null     ┆ null   ┆ null           ┆ MBA   │
+├╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌┤
+│ a0388282 ┆ 2388282 ┆ 388282 'Akepa (2006 RC118) ┆ 388282 ┆ ... ┆ null     ┆ null   ┆ null           ┆ MBA   │
+├╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌┤
+│ a0388282 ┆ 2388282 ┆ 388282 'Akepa (2006 RC118) ┆ 388282 ┆ ... ┆ null     ┆ null   ┆ null           ┆ MBA   │
+└──────────┴─────────┴────────────────────────────┴────────┴─────┴──────────┴────────┴────────────────┴───────┘    </code>
+                        </pre>
+                        <p>Now let see which library is faster in sorting from this result:</p>
+                        <table class="table mb-4">
+                            <thead>
+                              <tr>
+                                <th scope="col">Use case</th>
+                                <th scope="col">Pandas</th>
+                                <th scope="col">Polars</th>
+                                <th scope="col">Difference</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>Sort the <b>name</b> column alphabetically (in an ascending order)</td>
+                                <td>302.64 seconds</td>
+                                <td>30.65 seconds</td>
+                                <td>273 seconds</td>
+                              </tr>
+                            </tbody>
+                        </table>
+                        <p>Once again, Polars has its execution time significantly greater than Pandas. The speedup is approximately
+                            <b>10 times</b> faster when using sort function in Polars.
+                        </p>
+                        <h3 id="use-cases-3" class="font-bold mt-4 pt-4">3. Apply a function to the diameter column that divide by 2 to transform it into a radius column</h3>
+                        <p>In this use case, let say we would like to derive the radius values from the diameters that have been provided from the dataset. To achieve this, we can 
+                            divide each value in the diameter column by 2 and generate a new column called <b>radius</b>.
+                        </p>
+                        <p style="margin-bottom: 0 !important">There are different ways to work with it in Pandas, but the most common one would be using <code>.apply()</code> method:</p>
+                        <pre>
+                            <code class="python">def use_case_3():
+    global df
+    df['radius'] = df['diameter'].apply(lambda x: x / 2)
+    print(df.head(5))</code>
+                        </pre>
+                        <p style="margin-bottom: 0 !important">Now in Polars, we can use the <code>.map()</code> method to accomplish this task:</p>
+                        <pre>
+                            <code class="python">def use_case_3():
+    global lf
+    print((
+        lf.with_column(
+            pl.col('diameter')
+            .map(lambda s: s / 2)
+            .alias('radius')
+        )
+        .collect()
+        .head() 
+    ))</code>
+                        </pre>
+                        <p style="margin-bottom: 0 !important">Here is the same result that has been returned by both snippets:</p>
+                        <pre>
+                            <code class="plain-text" style="font-size: 0.85rem">┌──────────┬─────────┬────────────────┬──────┬─────┬────────┬────────────────┬───────┬─────────┐
+│ id       ┆ spkid   ┆ full_name      ┆ pdes ┆ ... ┆ albedo ┆ diameter_sigma ┆ class ┆ radius  │
+│ ---      ┆ ---     ┆ ---            ┆ ---  ┆     ┆ ---    ┆ ---            ┆ ---   ┆ ---     │
+│ str      ┆ i64     ┆ str            ┆ str  ┆     ┆ f64    ┆ f64            ┆ str   ┆ f64     │
+╞══════════╪═════════╪════════════════╪══════╪═════╪════════╪════════════════╪═══════╪═════════╡
+│ a0000001 ┆ 2000001 ┆      1 Ceres   ┆ 1    ┆ ... ┆ 0.09   ┆ 0.2            ┆ MBA   ┆ 469.7   │
+├╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌┤
+│ a0000002 ┆ 2000002 ┆      2 Pallas  ┆ 2    ┆ ... ┆ 0.101  ┆ 18.0           ┆ MBA   ┆ 272.5   │
+├╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌┤
+│ a0000003 ┆ 2000003 ┆      3 Juno    ┆ 3    ┆ ... ┆ 0.214  ┆ 10.594         ┆ MBA   ┆ 123.298 │
+├╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌┤
+│ a0000004 ┆ 2000004 ┆      4 Vesta   ┆ 4    ┆ ... ┆ 0.4228 ┆ 0.2            ┆ MBA   ┆ 262.7   │
+├╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌┤
+│ a0000005 ┆ 2000005 ┆      5 Astraea ┆ 5    ┆ ... ┆ 0.274  ┆ 3.14           ┆ MBA   ┆ 53.3495 │
+└──────────┴─────────┴────────────────┴──────┴─────┴────────┴────────────────┴───────┴─────────┘</code>
+                        </pre>
+                        <p>And the results of the performance tests in this use case:</p>
+                        <table class="table mb-4">
+                            <thead>
+                              <tr>
+                                <th scope="col">Use case</th>
+                                <th scope="col">Pandas</th>
+                                <th scope="col">Polars</th>
+                                <th scope="col">Difference</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>Apply a function to the <b>diameter</b> column that divide by 2 to transform it into a radius column</td>
+                                <td>15.24 seconds</td>
+                                <td>0.86 seconds</td>
+                                <td>14.38 seconds</td>
+                              </tr>
+                            </tbody>
+                        </table>
+                        <p>In this test, Polars also beats Pandas in terms of execution time.
+                        </p>
+                        <h3 id="use-cases-4" class="font-bold mt-4 pt-4"> 4. Filter all rows with the <b>diameter</b> equal or larger than that of 4 Vesta asteroid (an asteroid having a diameter of 525 km)</h3>
+                        <p>Next, we will try out a use case where we will get a subset of the dataset based on conditions.
+                            This is a common operation during a EDA in which we are indexing the DataFrame to get the desired results.
+                        </p>
+                        <p style="margin-bottom: 0 !important">In Pandas, the indexing operation is quite simple:</p>
+                        <pre>
+                            <code class="python">def use_case_4():
+    global df
+    vesta_diameter = 525
+    print((
+        df[df.diameter >= vesta_diameter]
+        .head(5)
+    ))</code>
+                        </pre>
+                        <p style="margin-bottom: 0 !important">For Polars, we can use the <code>.filter()</code> method that we have learned in the previous sections:</p>
+                        <pre>
+                            <code class="python">def use_case_4():
+    global lf
+    vesta_diameter = 525
+    print((
+        lf.filter(pl.col('diameter') >= vesta_diameter)
+        .collect()
+        .head()
+    ))</code>
+                        </pre>
+                        <p style="margin-bottom: 0 !important">As expected, both snippets returned the same result:</p>
+                        <pre>
+                            <code class="plain-text" style="font-size: 0.75rem">┌──────────┬─────────┬────────────────────────────┬───────┬─────┬──────────┬────────┬────────────────┬───────┐
+│ id       ┆ spkid   ┆ full_name                  ┆ pdes  ┆ ... ┆ diameter ┆ albedo ┆ diameter_sigma ┆ class │
+│ ---      ┆ ---     ┆ ---                        ┆ ---   ┆     ┆ ---      ┆ ---    ┆ ---            ┆ ---   │
+│ str      ┆ i64     ┆ str                        ┆ str   ┆     ┆ f64      ┆ f64    ┆ f64            ┆ str   │
+╞══════════╪═════════╪════════════════════════════╪═══════╪═════╪══════════╪════════╪════════════════╪═══════╡
+│ a0000001 ┆ 2000001 ┆      1 Ceres               ┆ 1     ┆ ... ┆ 939.4    ┆ 0.09   ┆ 0.2            ┆ MBA   │
+├╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌┤
+│ a0000002 ┆ 2000002 ┆      2 Pallas              ┆ 2     ┆ ... ┆ 545.0    ┆ 0.101  ┆ 18.0           ┆ MBA   │
+├╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌┤
+│ a0000004 ┆ 2000004 ┆      4 Vesta               ┆ 4     ┆ ... ┆ 525.4    ┆ 0.4228 ┆ 0.2            ┆ MBA   │
+├╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌┤
+│ a0020000 ┆ 2020000 ┆  20000 Varuna (2000 WR106) ┆ 20000 ┆ ... ┆ 900.0    ┆ 0.07   ┆ 140.0          ┆ TNO   │
+├╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌┼╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌┤
+│ a0000001 ┆ 2000001 ┆      1 Ceres               ┆ 1     ┆ ... ┆ 939.4    ┆ 0.09   ┆ 0.2            ┆ MBA   │
+└──────────┴─────────┴────────────────────────────┴───────┴─────┴──────────┴────────┴────────────────┴───────┘</code>
+                        </pre>
+                        <p>Let's compare the performance of these two libraries:</p>
+                        <table class="table mb-4">
+                            <thead>
+                              <tr>
+                                <th scope="col">Use case</th>
+                                <th scope="col">Pandas</th>
+                                <th scope="col">Polars</th>
+                                <th scope="col">Difference</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>Filter all rows with the <b>diameter</b> equal or larger than that of 4 Vesta asteroid (an asteroid having a diameter of 525 km)</td>
+                                <td>1.02 seconds</td>
+                                <td>0.24 seconds</td>
+                                <td>0.78 seconds</td>
+                              </tr>
+                            </tbody>
+                        </table>
+                        <p>Despite being beaten by Polars in this use case as well, Pandas still perform very well in filtering (indexing) operation. The ratio is much smaller
+                            comparing to other use cases, which is <b>4x</b> this time.
+                        </p>
+                        <h3 id="use-cases-5" class="font-bold mt-4 pt-4">5. Filter all rows with the diameter smaller than that of 4 Vesta asteroid, grouped by asteroid class, and calculate the mean diameter (in kilometers)</h3>
+                        <p>We have come a long way! Now in this final test, let's try out a more complex DataFrame operation. We will filter all
+                            rows based on the <b>diameter</b> feature, then group the filtered records by asteroid class and calculate the mean
+                            diameter for each group.
+                        </p>
+                        <p style="margin-bottom: 0 !important">Here is the code of Pandas:</p>
+                        <pre>
+                            <code class="python">def use_case_5():
+    global df
+    vesta_diameter = 525
+    print((
+        df[df.diameter <= vesta_diameter]
+        .groupby(['class'])['diameter'].mean()
+        .head(5)
+    ))</code>
+                        </pre>
+                        <p style="margin-bottom: 0 !important">And the code of Polars. Notice that there is no sort method in the Pandas' snippet since
+                        the groupby has already organized the group in an ascending order while being executed.</p>
+                        <pre>
+                            <code class="python">def use_case_5():
+    global lf
+    vesta_diameter = 525
+    print((
+        lf.filter(pl.col('diameter') <= vesta_diameter)
+        .groupby(pl.col('class'))
+        .agg(pl.col('diameter').mean())
+        .sort('class')
+        .collect()
+        .head()
+    ))</code>
+                        </pre>
+                        <p style="margin-bottom: 0 !important">The obtained result by running both the snippets:</p>
+                        <pre>
+                            <code class="plain-text">┌───────┬───────────┐
+│ class ┆ diameter  │
+│ ---   ┆ ---       │
+│ str   ┆ f64       │
+╞═══════╪═══════════╡
+│ AMO   ┆ 1.752     │
+├╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌┤
+│ APO   ┆ 0.955645  │
+├╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌┤
+│ AST   ┆ 13.044125 │
+├╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌┤
+│ ATE   ┆ 0.615705  │
+├╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌┤
+│ CEN   ┆ 52.731294 │
+└───────┴───────────┘</code>
+                        </pre>
+                        <p>So far, so good. Let's have a look on the performance:</p>
+                        <table class="table mb-4">
+                            <thead>
+                              <tr>
+                                <th scope="col">Use case</th>
+                                <th scope="col">Pandas</th>
+                                <th scope="col">Polars</th>
+                                <th scope="col">Difference</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>Filter all rows with the <b>diameter</b> smaller than that of 4 Vesta asteroid, grouped by asteroid <b>class</b>, and calculate the mean <b>diameter</b> (in kilometers).</td>
+                                <td>68.63 seconds</td>
+                                <td>0.66 seconds</td>
+                                <td>67.97 seconds</td>
+                              </tr>
+                            </tbody>
+                        </table>
+                        <p>Polars performed <b>10 times</b> faster than Pandas in this test as well. From my prior experiences when working with DataFrame, the execution time
+                        of Pandas involving groupby was usually this long. Polars, with its ability of parallelization, has made this operation to be completed extremely fast.</p>
+                        <h2 id="conclusion" class="font-bold">Conclusion</h2>
+                        <p>Up until now, we have learned about Polars' characteristics and some common expressions. We have also conduct a comparison between it and Pandas in 5 different use cases.
+                            In general, Polars has the faster execution time comparing to Pandas in every tests.
+                        </p>
+                        <h3 id="personal-comment" class="font-bold mt-4 pt-4">Personal comment</h3>
+                        <p>Pandas is (again) no doubt one of the easiest library to learn, especially when the documentation and the built-in code has been improving
+                            by the generous community. It seems like Pandas' best perk is its ease of use. As for performance, you can actually improve it by combining with
+                            the function <code>to_numpy()</code> (since Pandas is built on top of NumPy) or with Dask or Modin.
+                        </p>
+                        <p>However, it might make the users to take more effort to leverage such high performance. This is when Polars can shine up, in which you can get familliar with
+                            the function or syntax quickly while getting a better performance without much difficulties or hacky workarounds
+                        </p>
+                        <blockquote>So, Polars or Pandas?</blockquote>
+                        <p>Well, my only suggestion to you is that: you should give Polars a try.
+                            Then maybe you can come up with some ideas where Polars can help
+                            optimizing your works or projects.
+                        </p>
+                        <p>Thank you for reading this blog!</p>
+                    </div>
+                </article>
+            </div>
+        </main>
+    </div>
+    <a href="../../index" class="back-to-home fadein"><i class="fa-solid fa-house"></i></a>
+    <a class="back-to-top fadeinUp"><i class="fa-solid fa-caret-up"></i></a>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" async defer
+        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous">
+    </script>
+    <script src="../js/style.js"></script>
+</body>
+
+</html>

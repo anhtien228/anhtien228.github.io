@@ -384,6 +384,21 @@ blockquote, dd, dl, figure, h1, h2, h3, h4, h5, h6, hr, p, pre {
     opacity: 0.5;
     visibility: visible;
 }
+
+.copy-btn {
+    position: sticky;
+    top: 55px;
+    left: 95%;
+    font-size: 1.125rem;
+    color: white;
+    opacity: 0.6;
+    background-color: #263238;
+    transition: 250ms ease-in-out
+}
+
+.copy-btn:hover {
+    opacity: 1
+}
   
 /*================== ANIMATION ================ */
 /* Chrome, Safari, Opera */

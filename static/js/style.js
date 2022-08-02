@@ -53,3 +53,4 @@ document.getElementById("blog-list").addEventListener("mousewheel", function() {
     $('#blog-list').addClass('hidden-scroll');
   }, 1000)
 });
+

@@ -6,7 +6,7 @@ $(window).on('load', function() {
     //     rotate: true,
     //     slideShadows: false
     //   },
-    // loop: true,
+    //   loop: true,
     //   grabCursor: true,
     pagination: {
       el: ".swiper-pagination",
@@ -21,6 +21,7 @@ $(window).on('load', function() {
       onlyInViewport: false,
       pageUpDown: true
     },
+    preventClicks: true,
   });
 });
 

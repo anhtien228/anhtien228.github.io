@@ -102,6 +102,11 @@ p {
     transform: scale3d(1, 1, 1);
 }
 
+.link-contact:hover {
+    transition: all ease-in 250ms; 
+    color: var(--green);
+}
+
 .p-24 {
     padding: 24px;
 }
@@ -772,7 +777,7 @@ blockquote, dd, dl, figure, h1, h2, h3, h4, h5, h6, hr, p, pre {
         transition: height linear 200ms;
     }
     .font-2xl {
-        font-size: 3.5rem;
+        font-size: 3.0rem;
         transition: font-size linear 200ms;
     }
     
@@ -781,7 +786,7 @@ blockquote, dd, dl, figure, h1, h2, h3, h4, h5, h6, hr, p, pre {
     }
     
     .font-lg {
-        font-size: 1.5rem;
+        font-size: 1.25rem;
         transition: font-size linear 200ms;
     }
 
